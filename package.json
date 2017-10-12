@@ -1,0 +1,64 @@
+{
+  "name": "likemark-backend-ts",
+  "version": "1.0.0",
+  "description": "likemark-backend-ts",
+  "main": "src/server.ts",
+  "dependencies": {
+    "debug": "^3.0.0",
+    "dotenv": "^4.0.0",
+    "express": "^4.15.4",
+    "sequelize": "^4.7.1",
+    "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
+    "tedious": "^2.0.0"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^4.0.1",
+    "@types/express": "^4.0.37",
+    "@types/jest": "^20.0.8",
+    "@types/node": "^8.0.19",
+    "@types/sequelize": "^4.0.70",
+    "@types/tedious": "^1.8.30",
+    "eslint-plugin-typescript": "^0.3.0",
+    "jest": "^20.0.4",
+    "standard": "^10.0.3",
+    "ts-jest": "^20.0.10",
+    "ts-node": "^3.3.0",
+    "ts-node-dev": "^1.0.0-pre.4",
+    "tslint": "^5.5.0",
+    "tslint-config-standard": "^6.0.1",
+    "typescript": "^2.4.2",
+    "typescript-eslint-parser": "^4.0.0"
+  },
+  "scripts": {
+    "start": "ts-node-dev src/server.ts",
+    "lint": "tslint src/server.ts",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Tower450/typescript-starter-backend.git"
+  },
+  "standard": {
+    "parser": "typescript-eslint-parser",
+    "plugins": [
+      "typescript"
+    ]
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "json"
+    ]
+  },
+  "keywords": [
+    "typescript-backend"
+  ],
+  "author": "Tower450",
+  "license": "ISC"
+}
