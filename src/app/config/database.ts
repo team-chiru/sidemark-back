@@ -28,6 +28,6 @@ export const connection = new Sequelize(database, username, password, {
     idle: 10000
   },
   // Enable logging or not to sequelize
-  logging: false,
+  logging: true,
   storage: storage
 })
