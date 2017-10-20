@@ -4,9 +4,12 @@
   "description": "likemark-backend-ts",
   "main": "src/server.ts",
   "dependencies": {
+    "bookshelf": "^0.10.4",
     "debug": "^3.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
+    "knex": "^0.13.0",
+    "pg": "^7.3.0",
     "sequelize": "^4.7.1",
     "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
     "tedious": "^2.0.0"
