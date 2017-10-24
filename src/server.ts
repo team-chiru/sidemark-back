@@ -8,37 +8,37 @@ import { AppRouter } from './appRouter'
 import * as entity from './app/dao/entity'
 
 export class Server {
-  private app: any
-  private server: any
-  private port: number
-  private appRouter: AppRouter = new AppRouter('/')
+  private _app: any
+  private _server: any
+  private _port: number
+  private appRouter: AppRouter = new AppRouter('/entity')
 
   constructor (port: number) {
-    // Get Express App configuration.
-    this.app = this.appRouter.getApp()
+    // Get Express App configuration.ƒ
+    this._app = this.appRouter.app
      // Create HTTP server.
-    this.server = http.createServer(this.app)
+    this._server = http.createServer(this._app)
     // Set the server port.
-    this.port = port
+    this._port = port
   }
 
-  start = () => {
+  start () {
     // Set Port for express route
-    this.app.set('port', this.port)
+    this._app.set('port', this._port)
     // Listen on provided port, on all network interfaces.
-    this.server.listen(this.port)
-    this.server.on('error', this.onError)
-    this.server.on('listening', this.onListening)
+    this._server.listen(this._port)
+    this._server.on('error', this.onError)
+    this._server.on('listening', this.onListening.bind(this, this._server))
   }
 
-  onError (error) {
+  private onError (error) {
     if (error.syscall !== 'listen') {
       throw error
     }
 
-    let bind = typeof this.port === 'string'
-      ? 'Pipe ' + this.port
-      : 'Port ' + this.port
+    let bind = typeof this._port === 'string'
+      ? 'Pipe ' + this._port
+      : 'Port ' + this._port
 
     // handle specific listen errors with friendly messages
     switch (error.code) {
@@ -55,8 +55,9 @@ export class Server {
     }
   }
 
-  onListening () {
-    let addr = this.server.address()
+  private onListening (server: any) {
+    // console.log(server)
+    let addr = server.address()
     let bind = typeof addr === 'string'
       ? 'pipe ' + addr
       : 'port ' + addr.port

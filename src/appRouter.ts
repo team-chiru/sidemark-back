@@ -3,24 +3,24 @@ import { Router } from '../node_modules/@types/express-serve-static-core/index'
 import { router as route } from './app/routes/entity'
 
 export class AppRouter {
-  private app: any
-  private mainRoute: string
+  private _app: any
+  private _mainRoute: string
 
   // mainRoute parameter is a path for express router.
   constructor (mainRoute: string) {
-    this.mainRoute = mainRoute
+    this._mainRoute = mainRoute
     // Initialise express Router
-    this.app = express()
-    // // Initialise the main route for express.
-    this.app.use(this.mainRoute, route)
+    this._app = express()
+    // Initialise the main route for express.
+    this._app.use(this._mainRoute, route)
   }
 
-  get getApp (): any {
-    return this.app
+  get app (): any {
+    return this._app
   }
   setAppRoute (route: any) {
     // Set specific routes
-    this.app.use(this.mainRoute, route)
+    this._app.use(this._mainRoute, route)
   }
 
 }
