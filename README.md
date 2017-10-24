@@ -1,4 +1,7 @@
-# Likemark-backend-ts
+# Sidemark-back
+```
+Likemark backend prototype.
+```
 ### Installing and Script
 
 ```
