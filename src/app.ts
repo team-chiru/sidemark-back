@@ -2,7 +2,6 @@
  * Module dependencies.
  */
 import * as express from 'express'
-import * as path from 'path'
 import * as dotenv from 'dotenv'
 
 // Load routes from external files
