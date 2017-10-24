@@ -1,6 +1,7 @@
 import * as express from 'express'
 import { Router } from '../node_modules/@types/express-serve-static-core/index'
 import { router as route } from './app/routes/entity'
+import { routerTest as routeTest } from './app/routes/test'
 
 export class AppRouter {
   private _app: any
@@ -13,14 +14,10 @@ export class AppRouter {
     this._app = express()
     // Initialise the main route for express.
     this._app.use(this._mainRoute, route)
+    this._app.use(this._mainRoute, routeTest)
   }
 
   get app (): any {
     return this._app
   }
-  setAppRoute (route: any) {
-    // Set specific routes
-    this._app.use(this._mainRoute, route)
-  }
-
 }

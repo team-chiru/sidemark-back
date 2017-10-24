@@ -11,7 +11,7 @@ export class Server {
   private _app: any
   private _server: any
   private _port: number
-  private appRouter: AppRouter = new AppRouter('/entity')
+  private appRouter: AppRouter = new AppRouter('/')
 
   constructor (port: number) {
     // Get Express App configuration.ƒ
