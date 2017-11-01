@@ -3,6 +3,7 @@ import * as Sequelize from 'sequelize'
 import { connection } from '../config/database'
 
 export const Entity = connection.define('Entity', {
+  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
   name: { type: Sequelize.STRING, allowNull: true },
   url: { type: Sequelize.STRING, allowNull: true }
 }, {
