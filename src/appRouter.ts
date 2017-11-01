@@ -1,7 +1,7 @@
 import * as express from 'express'
+import * as bodyParser from 'body-parser'
 import { Router } from '../node_modules/@types/express-serve-static-core/index'
 import { router as route } from './app/routes/entity'
-import { routerTest as routeTest } from './app/routes/test'
 
 export class AppRouter {
   private _app: any
@@ -12,9 +12,10 @@ export class AppRouter {
     this._mainRoute = mainRoute
     // Initialise express Router
     this._app = express()
+    // Setup body parser
+    this._app.use(bodyParser.json())
     // Initialise the main route for express.
     this._app.use(this._mainRoute, route)
-    this._app.use(this._mainRoute, routeTest)
   }
 
   get app (): any {

@@ -8,6 +8,8 @@ export const router = express.Router()
 /**
  * Define EndPoint routes
  */
-router.get('/entity/get', entity.get)
-router.get('/entity/external',entity.external)
+router.get('/entity/get/:id', entity.get)
+router.get('/entity/list', entity.list)
 router.post('/entity/post', entity.post)
+router.patch('/entity/update/:id', entity.update)
+router.delete('/entity/delete/:id', entity.remove)
