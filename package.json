@@ -12,6 +12,7 @@
     "knex": "^0.13.0",
     "pg": "^7.3.0",
     "sequelize": "^4.7.1",
+    "sequelize-decorators": "^1.0.1",
     "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
     "tedious": "^2.0.0"
   },
