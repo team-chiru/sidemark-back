@@ -10,8 +10,8 @@ const entityDAO = new EntityDAO()
 /**
  * Define EndPoint routes
  */
-router.get('/entity/get/:id', entityDAO.get)
-router.get('/entity/list', entityDAO.list)
-router.post('/entity/post', entityDAO.post)
-router.patch('/entity/update/:id', entityDAO.update)
-router.delete('/entity/delete/:id', entityDAO.remove)
+router.get('/entity/get/:id', entityDAO.get.bind(entityDAO))
+router.get('/entity/list', entityDAO.list.bind(entityDAO))
+router.post('/entity/post', entityDAO.post.bind(entityDAO))
+router.patch('/entity/update/:id', entityDAO.update.bind(entityDAO))
+router.delete('/entity/delete/:id', entityDAO.remove.bind(entityDAO))

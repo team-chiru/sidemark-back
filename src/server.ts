@@ -21,7 +21,7 @@ export class Server {
   }
 
   start () {
-    // Set Port for express route
+    // Set Port for express route.
     this._app.set('port', this._port)
     // Listen on provided port, on all network interfaces.
     this._server.listen(this._port)
@@ -38,7 +38,7 @@ export class Server {
       ? 'Pipe ' + this._port
       : 'Port ' + this._port
 
-    // handle specific listen errors with friendly messages
+    // Handle specific listen errors with friendly messages.
     switch (error.code) {
       case 'EACCES':
         console.error(bind + ' requires elevated privileges')
@@ -54,10 +54,13 @@ export class Server {
   }
 
   private onListening (server: any) {
-    let addr = server.address()
-    let bind = typeof addr === 'string'
-      ? 'pipe ' + addr
-      : 'port ' + addr.port
+    let addr: any = server.address()
+    let bind: string
+    if ( typeof addr === 'string' ) {
+      bind = 'pipe ' + addr
+    }else {
+      bind = 'port ' + addr.port
+    }
     console.log('Listening on ' + bind)
   }
 }

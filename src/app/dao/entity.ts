@@ -1,7 +1,6 @@
 /**
  * Module dependencies.
  */
-import * as Sequelize from 'sequelize'
 import { Entity } from '../models/entity'
 import { Request, Response } from '../../../node_modules/@types/express/index'
 
@@ -12,7 +11,7 @@ export class EntityDAO {
     this.entityModel = Entity
   }
 
-  public get = (req: Request, res: Response) => {
+  public get (req: Request, res: Response) {
     const id: number = req.params.id
     this.entityModel.findOne({
       where: {
@@ -34,7 +33,7 @@ export class EntityDAO {
       })
   }
 
-  public list = (req: Request, res: Response) => {
+  public list (req: Request, res: Response) {
     this.entityModel.findAll()
     .then(
       (entities) => {
@@ -51,7 +50,7 @@ export class EntityDAO {
       })
   }
 
-  public post = (req: Request, res: Response) => {
+  public post (req: Request, res: Response) {
     const entity: any = req.body
     console.log(req.body)
     this.entityModel.create(entity)
@@ -70,7 +69,7 @@ export class EntityDAO {
       })
   }
 
-  public update = (req: Request, res: Response) => {
+  public update (req: Request, res: Response) {
     const id: number = req.params.id
     const entity: Object = req.body
 
@@ -94,7 +93,7 @@ export class EntityDAO {
       })
   }
 
-  public remove = (req, res: any) => {
+  public remove (req, res: any) {
     const id: number = req.params.id
     this.entityModel.destroy({
       where: {

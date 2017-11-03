@@ -8,7 +8,7 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 /**
- * Get .env value to put in the connection
+ * Get .env value to put in the connection.
  */
 const database = process.env.SQLITE_DB as string
 const username = process.env.SQLITE_USER as string

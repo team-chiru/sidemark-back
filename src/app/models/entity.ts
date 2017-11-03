@@ -2,6 +2,7 @@
 import { connection } from '../config/database'
 import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript'
 
+// Entity Table Model.
 @Table(
   {
     tableName: 'Entity',
@@ -10,7 +11,6 @@ import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript
   }
 )
 export class Entity extends Model<Entity> {
-
   @PrimaryKey
   @Column({ type: DataType.INTEGER, primaryKey: true })
   id: number
@@ -20,8 +20,8 @@ export class Entity extends Model<Entity> {
 
   @Column(DataType.TEXT)
   url: string
-
 }
-// Add model to Sequelize instance
+
+// Add model to Sequelize instance.
 connection.addModels([Entity])
 console.log('Entity model is ready!')
