@@ -3,9 +3,7 @@
  */
 import * as http from 'http'
 import * as bodyParser from 'body-parser'
-import * as path from 'path'
 import { AppRouter } from './appRouter'
-import * as entity from './app/dao/entity'
 
 export class Server {
   private _app: any
@@ -56,7 +54,6 @@ export class Server {
   }
 
   private onListening (server: any) {
-    // console.log(server)
     let addr = server.address()
     let bind = typeof addr === 'string'
       ? 'pipe ' + addr

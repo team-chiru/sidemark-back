@@ -2,15 +2,20 @@
 ### Installing and Script
 
 ```
-npm install
+npm install --save https://github.com/mapbox/node-sqlite3/tarball/master
+```
 
+```
+npm install
 ```
 
 ```
 npm run lint
-
 ```
 
+### @types for Sequelize-TypeScript
+You need to copy paste from node_modules the folder sequelize-typescript
+into the folder node_modules/@types to not have ts compiler problems in vscode.  
 
 ### Development
 

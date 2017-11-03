@@ -1,0 +1,53 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug JS",
+            "program": "${workspaceRoot}/js/main",
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "Debug TS",
+            "program": "${workspaceRoot}/ts/main",
+            "cwd": "${workspaceRoot}"
+        },
+        {
+            "name": "Launch JS on Chrome",
+            "type": "chrome",
+            "request": "launch",
+            "file": "${workspaceRoot}/js/index.html"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug JS on Chrome",
+            "url": "http://localhost:8080/js/index.html",
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Debug TS on Chrome",
+            "url": "http://localhost:8080/ts/index.html",
+            "sourceMaps": true,
+            "webRoot": "${workspaceRoot}"
+        },
+        {
+            "type": "chrome",
+            "name": "Attach on Chrome",
+            "request": "attach",
+            "port": 9222
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Debug JS",
+            "configurations": ["Debug JS", "Debug JS on Chrome"]
+        }
+    ]
+}

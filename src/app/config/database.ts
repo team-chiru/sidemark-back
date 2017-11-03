@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-import * as Sequelize from 'sequelize'
+import { Sequelize } from 'sequelize-typescript'
 import * as dotenv from 'dotenv'
 
 // Load environment variables
@@ -20,14 +20,11 @@ const maxpool: number = Number(process.env.MSSQL_MAX_POOL)
 /**
  * Initialise SQLITE database connection.
  */
-export const connection = new Sequelize(database, username, password, {
+export const connection = new Sequelize({
+  database: database,
   dialect: 'sqlite',
-  pool: {
-    max: maxpool,
-    min: 0,
-    idle: 10000
-  },
-  // Enable logging or not to sequelize
-  logging: true,
-  storage: storage
+  username: username,
+  password: password,
+  storage:  storage,
+  logging: true
 })
