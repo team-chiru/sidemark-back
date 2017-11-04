@@ -12,13 +12,23 @@ import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript
 )
 export class Entity extends Model<Entity> {
   @PrimaryKey
-  @Column({ type: DataType.INTEGER, primaryKey: true })
+  @Column({
+    type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  })
   id: number
 
-  @Column(DataType.TEXT)
+  @Column({
+    type: DataType.TEXT,
+    allowNull: true
+  })
   name: string
 
-  @Column(DataType.TEXT)
+  @Column({
+    type: DataType.TEXT,
+    allowNull: true
+  })
   url: string
 }
 
