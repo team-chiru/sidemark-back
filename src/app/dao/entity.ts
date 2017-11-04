@@ -5,7 +5,7 @@ import { Entity } from '../models/entity'
 import { Request, Response } from '../../../node_modules/@types/express/index'
 
 export class EntityDAO {
-  private entityModel: any
+  public entityModel
 
   constructor () {
     this.entityModel = Entity
@@ -13,7 +13,7 @@ export class EntityDAO {
 
   public get (req: Request, res: Response) {
     const id: number = req.params.id
-    this.entityModel.findOne({
+    Entity.findOne<Entity>({
       where: {
         id: id
       }
@@ -34,7 +34,7 @@ export class EntityDAO {
   }
 
   public list (req: Request, res: Response) {
-    this.entityModel.findAll()
+    Entity.findAll<Entity>()
     .then(
       (entities) => {
         return res.status(200).json({
@@ -52,8 +52,7 @@ export class EntityDAO {
 
   public post (req: Request, res: Response) {
     const entity: any = req.body
-    console.log(req.body)
-    this.entityModel.create(entity)
+    Entity.create<Entity>(entity)
     .then(
       (entity) => {
         return res.status(201).json({
@@ -64,7 +63,7 @@ export class EntityDAO {
       (_err) => {
         return res.status(400).json({
           success: false,
-          message: _err
+          message: _err.message
         })
       })
   }
@@ -73,39 +72,53 @@ export class EntityDAO {
     const id: number = req.params.id
     const entity: Object = req.body
 
-    this.entityModel.update( entity, {
-      where: {
-        id: id
-      }
-    })
-    .then(
-      (site) => {
-        return res.status(201).json({
-          success: true,
-          message: req.body
-        })
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err
-        })
-      })
-  }
-
-  public remove (req, res: any) {
-    const id: number = req.params.id
-    this.entityModel.destroy({
+    Entity.update<Entity>( entity, {
       where: {
         id: id
       }
     })
     .then(
       (entity) => {
-        return res.status(200).json({
-          success: true,
-          message: entity
+        if (entity[0] === 1 ) {
+          return res.status(200).json({
+            success: true,
+            message: entity
+          })
+        }else {
+          return res.status(400).json({
+            success: false,
+            message: 'There is no entity associated to this id.'
+          })
+        }
+      },
+      (_err) => {
+        return res.status(400).json({
+          success: false,
+          message: _err.message
         })
+      })
+  }
+
+  public remove (req, res: any) {
+    const id: number = req.params.id
+    Entity.destroy({
+      where: {
+        id: id
+      }
+    })
+    .then(
+      (entity) => {
+        if (entity === 1 ) {
+          return res.status(200).json({
+            success: true,
+            message: entity
+          })
+        }else {
+          return res.status(400).json({
+            success: false,
+            message: 'There is no entity associated to this id.'
+          })
+        }
       },
       (_err) => {
         return res.status(400).json({
