@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 import { Entity } from '../models/entity'
-import { Request, Response } from '../../../node_modules/@types/express/index'
+import { Request, Response } from 'express'
 
 export class EntityDAO {
   public entityModel
