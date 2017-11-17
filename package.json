@@ -4,17 +4,21 @@
   "description": "likemark-backend-ts",
   "main": "src/server.ts",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "bookshelf": "^0.10.4",
     "debug": "^3.0.0",
     "dotenv": "^4.0.0",
     "express": "^4.15.4",
     "knex": "^0.13.0",
     "pg": "^7.3.0",
+    "reflect-metadata": "^0.1.10",
     "sequelize": "^4.7.1",
+    "sequelize-typescript": "^0.5.0",
     "sqlite3": "https://github.com/mapbox/node-sqlite3/tarball/master",
     "tedious": "^2.0.0"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.16.5",
     "@types/dotenv": "^4.0.1",
     "@types/express": "^4.0.37",
     "@types/jest": "^20.0.8",
@@ -33,8 +37,8 @@
     "typescript-eslint-parser": "^4.0.0"
   },
   "scripts": {
-    "start": "ts-node-dev src/server.ts",
-    "lint": "tslint src/server.ts",
+    "start": "ts-node-dev src/main.ts",
+    "lint": "tslint src/main.ts",
     "test": "jest"
   },
   "repository": {
@@ -62,6 +66,6 @@
   "keywords": [
     "typescript-backend"
   ],
-  "author": "Tower450",
+  "author": "team-chiru",
   "license": "ISC"
 }

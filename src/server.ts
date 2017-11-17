@@ -2,76 +2,65 @@
  * Module dependencies.
  */
 import * as http from 'http'
-import { app } from './app'
-import { connection as connection } from './app/config/database'
+import * as bodyParser from 'body-parser'
+import { AppRouter } from './appRouter'
 
-/**
- * Get port from environment and store in Express.
- */
-const port: any = process.env.PORT
+export class Server {
+  private _app: any
+  private _server: any
+  private _port: number
+  private appRouter: AppRouter = new AppRouter('/')
 
-app.set('port', port)
-
-/**
- * Create HTTP server.
- */
-const server = http.createServer(app)
-
-/**
- * Listen on provided port, on all network interfaces.
- */
-const startServer = (app: any, server: any) => {
-  // Set Port for express route
-  app.set('port', port)
-  // Listen on provided port, on all network interfaces.
-  server.listen(port)
-  server.on('error', onError)
-  server.on('listening', onListening)
-}
-
-connection
-.authenticate()
-.then(() => {
-  console.log('Connection has been established successfully.')
-  startServer(app, server)
-})
-.catch(err => {
-  console.error('Unable to connect to the database:', err)
-})
-/**
- * Event listener for HTTP server "error" event.
- */
-function onError (error) {
-  if (error.syscall !== 'listen') {
-    throw error
+  constructor (port: number) {
+    // Get Express App configuration.ƒ
+    this._app = this.appRouter.app
+     // Create HTTP server.
+    this._server = http.createServer(this._app)
+    // Set the server port.
+    this._port = port
   }
 
-  let bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port
+  start () {
+    // Set Port for express route.
+    this._app.set('port', this._port)
+    // Listen on provided port, on all network interfaces.
+    this._server.listen(this._port)
+    this._server.on('error', this.onError)
+    this._server.on('listening', this.onListening.bind(this, this._server))
+  }
 
-  // handle specific listen errors with friendly messages
-  switch (error.code) {
-    case 'EACCES':
-      console.error(bind + ' requires elevated privileges')
-      process.exit(1)
-      break
-    case 'EADDRINUSE':
-      console.error(bind + ' is already in use')
-      process.exit(1)
-      break
-    default:
+  private onError (error) {
+    if (error.syscall !== 'listen') {
       throw error
-  }
-}
+    }
 
-// /**
-//  * Event listener for HTTP server "listening" event.
-//  */
-function onListening () {
-  let addr = server.address()
-  let bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port
-  console.log('Listening on ' + bind)
+    let bind = typeof this._port === 'string'
+      ? 'Pipe ' + this._port
+      : 'Port ' + this._port
+
+    // Handle specific listen errors with friendly messages.
+    switch (error.code) {
+      case 'EACCES':
+        console.error(bind + ' requires elevated privileges')
+        process.exit(1)
+        break
+      case 'EADDRINUSE':
+        console.error(bind + ' is already in use')
+        process.exit(1)
+        break
+      default:
+        throw error
+    }
+  }
+
+  private onListening (server: any) {
+    let addr: any = server.address()
+    let bind: string
+    if ( typeof addr === 'string' ) {
+      bind = 'pipe ' + addr
+    }else {
+      bind = 'port ' + addr.port
+    }
+    console.log('Listening on ' + bind)
+  }
 }

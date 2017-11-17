@@ -1,21 +1,37 @@
 // Module dependencies.
-import * as Sequelize from 'sequelize'
 import { connection } from '../config/database'
+import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript'
 
-export const Entity = connection.define('Entity', {
-  id: { type: Sequelize.INTEGER, primaryKey: true, autoIncrement: true },
-  tree_id: { type: Sequelize.STRING, allowNull: false },
-  name: { type: Sequelize.STRING, allowNull: false },
-  url: { type: Sequelize.STRING, allowNull: true },
-  struct_type: { type: Sequelize.STRING, allowNull: false },
-  fn_type: { type: Sequelize.STRING, allowNull: true },
-  rev_no: { type: Sequelize.INTEGER, allowNull: false }
-}, {
-  tableName: 'Entity',
-  timestamps: false,
-  paranoid: false
-  // createdAt: 'CreatedAt',
-  // updatedAt: 'UpdatedAt'
-})
+// Entity Table Model.
+@Table(
+  {
+    tableName: 'Entity',
+    timestamps: false,
+    paranoid: false
+  }
+)
+export class Entity extends Model<Entity> {
+  @PrimaryKey
+  @Column({
+    type: DataType.INTEGER,
+    primaryKey: true,
+    autoIncrement: true
+  })
+  id: number
 
+  @Column({
+    type: DataType.TEXT,
+    allowNull: true
+  })
+  name: string
+
+  @Column({
+    type: DataType.TEXT,
+    allowNull: true
+  })
+  url: string
+}
+
+// Add model to Sequelize instance.
+connection.addModels([Entity])
 console.log('Entity model is ready!')

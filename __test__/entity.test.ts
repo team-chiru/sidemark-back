@@ -1,10 +1,13 @@
-import { Entity as entityModel } from './database/model/Entity'
+import { Entity } from '../src/app/models/entity'
+import { EntityDAO } from '../src/app/dao/entity'
 
-test('First test with bookshelf', () => {
-  entityModel.fetchAll()
-    .then(function (entity) {
-      console.log(entity)
-    }).catch(function (_err) {
-      console.error(_err)
-    })
+test('adds 1 + 2 to equal 3', () => {
+  expect(sum(1, 2)).toBe(3)
+})
+
+function sum (a: number, b: number) {
+  return a + b
+}
+it('works with async/await', async () => {
+    //
 })
