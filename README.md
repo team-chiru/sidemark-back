@@ -51,35 +51,35 @@ function sum (a: number, b: number) {
 #### GET
 Get a single entity by the uuId.
 ```
-'/entity/get/:uuId'
+/entity/get/:uuId
 ```
 
 Get the first level of children of an entity by uuId.
 ```
-'/entity/getFirstChild/:uuId'
+/entity/getFirstChild/:uuId
 ```
 
 List all entity in the database.
 ```
-'/entity/list'
+/entity/list
 ```
 
 #### POST
 Create a single entity.
 ```
-'/entity/post'
+/entity/post
 ```
 
 #### PATCH
 Update an entity by uuId.
 ```
-'/entity/update/:uuId'
+/entity/update/:uuId
 ```
 
 #### DELETE
 Delete an entity by uuId.
 ```
-'/entity/delete/:uuId
+/entity/delete/:uuId
 ```
 
 
