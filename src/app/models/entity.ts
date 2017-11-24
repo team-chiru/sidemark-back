@@ -17,7 +17,13 @@ export class Entity extends Model<Entity> {
     primaryKey: true,
     autoIncrement: true
   })
-  id: number
+  uuId: number
+
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false
+  })
+  parentId: number
 
   @Column({
     type: DataType.TEXT,
