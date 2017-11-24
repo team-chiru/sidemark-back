@@ -46,3 +46,41 @@ function sum (a: number, b: number) {
 }
 ```
 
+### API routes
+
+#### GET
+Get a single entity by the uuId.
+```
+'/entity/get/:uuId'
+```
+
+Get the first level of children of an entity by uuId.
+```
+'/entity/getFirstChild/:uuId'
+```
+
+List all entity in the database.
+```
+'/entity/list'
+```
+
+#### POST
+Create a single entity.
+```
+'/entity/post'
+```
+
+### PATCH
+Update an entity by uuId.
+```
+'/entity/update/:uuId'
+```
+
+### DELETE
+Delete an entity by uuId.
+```
+'/entity/delete/:uuId
+```
+
+
+
