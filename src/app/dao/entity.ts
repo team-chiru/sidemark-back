@@ -12,10 +12,10 @@ export class EntityDAO {
   }
 
   public get (req: Request, res: Response) {
-    const id: number = req.params.id
+    const uuId: number = req.params.uuId
     Entity.findOne<Entity>({
       where: {
-        id: id
+        uuId: uuId
       }
     })
     .then(
@@ -23,6 +23,29 @@ export class EntityDAO {
         return res.status(200).json({
           success: true,
           message: entity
+        })
+      },
+      (_err) => {
+        return res.status(400).json({
+          success: false,
+          message: _err.message
+        })
+      })
+  }
+
+  public getFirstChild (req: Request, res: Response) {
+    const uuId: number = req.params.uuId
+    Entity.findAll<Entity>({
+      where: {
+        parentId: uuId
+      }
+    })
+    .then(
+      (childrens) => {
+        console.log(childrens)
+        return res.status(200).json({
+          success: true,
+          message: childrens
         })
       },
       (_err) => {
@@ -69,12 +92,12 @@ export class EntityDAO {
   }
 
   public update (req: Request, res: Response) {
-    const id: number = req.params.id
+    const uuId: number = req.params.uuId
     const entity: Object = req.body
 
     Entity.update<Entity>( entity, {
       where: {
-        id: id
+        uuId: uuId
       }
     })
     .then(
@@ -87,7 +110,7 @@ export class EntityDAO {
         }else {
           return res.status(400).json({
             success: false,
-            message: 'There is no entity associated to this id.'
+            message: 'There is no entity associated to this uuId.'
           })
         }
       },
@@ -100,10 +123,10 @@ export class EntityDAO {
   }
 
   public remove (req, res: any) {
-    const id: number = req.params.id
+    const uuId: number = req.params.uuId
     Entity.destroy({
       where: {
-        id: id
+        uuId: uuId
       }
     })
     .then(
@@ -116,7 +139,7 @@ export class EntityDAO {
         }else {
           return res.status(400).json({
             success: false,
-            message: 'There is no entity associated to this id.'
+            message: 'There is no entity associated to this uuId.'
           })
         }
       },
