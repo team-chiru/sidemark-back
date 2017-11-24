@@ -70,13 +70,13 @@ Create a single entity.
 '/entity/post'
 ```
 
-### PATCH
+#### PATCH
 Update an entity by uuId.
 ```
 '/entity/update/:uuId'
 ```
 
-### DELETE
+#### DELETE
 Delete an entity by uuId.
 ```
 '/entity/delete/:uuId
