@@ -42,7 +42,6 @@ export class EntityDAO {
     })
     .then(
       (childrens) => {
-        console.log(childrens)
         return res.status(200).json({
           success: true,
           message: childrens

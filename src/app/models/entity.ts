@@ -1,6 +1,6 @@
 // Module dependencies.
 import { connection } from '../config/database'
-import { Table, Column, Model, DataType, PrimaryKey } from 'sequelize-typescript'
+import { Table, Column, Model, DataType, PrimaryKey, ForeignKey } from 'sequelize-typescript'
 
 // Entity Table Model.
 @Table(
@@ -19,6 +19,7 @@ export class Entity extends Model<Entity> {
   })
   uuId: number
 
+  @ForeignKey(() => Entity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false
