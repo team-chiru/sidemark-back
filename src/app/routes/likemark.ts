@@ -11,7 +11,7 @@ const likemarkDAO = new LikemarkDAO()
  * Define EndPoint routes
  */
 router.get('/likemark/get/:id', likemarkDAO.get.bind(likemarkDAO))
-router.get('/likemark/getFirstChild/:id', likemarkDAO.getFirstChild.bind(likemarkDAO))
+router.get('/likemark/getFirstChildren/:id', likemarkDAO.getFirstChildren.bind(likemarkDAO))
 router.get('/likemark/list', likemarkDAO.list.bind(likemarkDAO))
 router.post('/likemark/post', likemarkDAO.post.bind(likemarkDAO))
 router.patch('/likemark/update/:id', likemarkDAO.update.bind(likemarkDAO))

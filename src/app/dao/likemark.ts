@@ -33,7 +33,7 @@ export class LikemarkDAO {
       })
   }
 
-  public getFirstChild (req: Request, res: Response) {
+  public getFirstChildren (req: Request, res: Response) {
     const id: number = req.params.id
     Likemark.findAll<Likemark>({
       where: {
@@ -41,10 +41,10 @@ export class LikemarkDAO {
       }
     })
     .then(
-      (childrens) => {
+      (children) => {
         return res.status(200).json({
           success: true,
-          message: childrens
+          message: children
         })
       },
       (_err) => {

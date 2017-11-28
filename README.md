@@ -56,7 +56,7 @@ Get a single entity by the id.
 
 Get the first level of children of an entity by id.
 ```
-/entity/getFirstChild/:id
+/entity/getFirstChildren/:id
 ```
 
 List all entity in the database.
