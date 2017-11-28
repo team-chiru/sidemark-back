@@ -1,7 +1,7 @@
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import { Router } from '../node_modules/@types/express-serve-static-core/index'
-import { router as route } from './app/routes/entity'
+import { router as route } from './app/routes/likemark'
 
 export class AppRouter {
   private _app: any

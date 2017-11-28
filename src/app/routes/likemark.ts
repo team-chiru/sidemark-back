@@ -2,7 +2,7 @@
  * Use Router object from express
  */
 import * as express from 'express'
-import { LikemarkDAO } from '../dao/entity'
+import { LikemarkDAO } from '../dao/likemark'
 export const router = express.Router()
 
 const likemarkDAO = new LikemarkDAO()
