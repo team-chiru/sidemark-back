@@ -49,14 +49,14 @@ function sum (a: number, b: number) {
 ### API routes
 
 #### GET
-Get a single entity by the uuId.
+Get a single entity by the id.
 ```
-/entity/get/:uuId
+/entity/get/:id
 ```
 
-Get the first level of children of an entity by uuId.
+Get the first level of children of an entity by id.
 ```
-/entity/getFirstChild/:uuId
+/entity/getFirstChild/:id
 ```
 
 List all entity in the database.
@@ -71,15 +71,15 @@ Create a single entity.
 ```
 
 #### PATCH
-Update an entity by uuId.
+Update an entity by id.
 ```
-/entity/update/:uuId
+/entity/update/:id
 ```
 
 #### DELETE
-Delete an entity by uuId.
+Delete an entity by id.
 ```
-/entity/delete/:uuId
+/entity/delete/:id
 ```
 
 

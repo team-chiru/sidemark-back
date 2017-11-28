@@ -1,5 +1,5 @@
-import { Entity } from '../src/app/models/entity'
-import { EntityDAO } from '../src/app/dao/entity'
+import { Likemark } from '../src/app/models/entity'
+import { LikemarkDAO } from '../src/app/dao/entity'
 
 test('adds 1 + 2 to equal 3', () => {
   expect(sum(1, 2)).toBe(3)

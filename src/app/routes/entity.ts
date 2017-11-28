@@ -2,17 +2,17 @@
  * Use Router object from express
  */
 import * as express from 'express'
-import { EntityDAO } from '../dao/entity'
+import { LikemarkDAO } from '../dao/entity'
 export const router = express.Router()
 
-const entityDAO = new EntityDAO()
+const likemarkDAO = new LikemarkDAO()
 
 /**
  * Define EndPoint routes
  */
-router.get('/entity/get/:uuId', entityDAO.get.bind(entityDAO))
-router.get('/entity/getFirstChild/:uuId', entityDAO.getFirstChild.bind(entityDAO))
-router.get('/entity/list', entityDAO.list.bind(entityDAO))
-router.post('/entity/post', entityDAO.post.bind(entityDAO))
-router.patch('/entity/update/:uuId', entityDAO.update.bind(entityDAO))
-router.delete('/entity/delete/:uuId', entityDAO.remove.bind(entityDAO))
+router.get('/likemark/get/:id', likemarkDAO.get.bind(likemarkDAO))
+router.get('/likemark/getFirstChild/:id', likemarkDAO.getFirstChild.bind(likemarkDAO))
+router.get('/likemark/list', likemarkDAO.list.bind(likemarkDAO))
+router.post('/likemark/post', likemarkDAO.post.bind(likemarkDAO))
+router.patch('/likemark/update/:id', likemarkDAO.update.bind(likemarkDAO))
+router.delete('/likemark/delete/:id', likemarkDAO.remove.bind(likemarkDAO))

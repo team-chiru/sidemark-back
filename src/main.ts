@@ -3,10 +3,7 @@
  */
 import { Server } from './server'
 import { connection as connection } from './app/config/database'
-import * as dotenv from 'dotenv'
 
-// Load environment variables
-dotenv.config()
 /**
  * Get port from environment and store in Express.
  */

@@ -1,25 +1,24 @@
 // Module dependencies.
 import { connection } from '../config/database'
-import { Table, Column, Model, DataType, PrimaryKey, ForeignKey } from 'sequelize-typescript'
+import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from 'sequelize-typescript'
 
 // Entity Table Model.
 @Table(
   {
-    tableName: 'Entity',
+    tableName: 'Likemark',
     timestamps: false,
     paranoid: false
   }
 )
-export class Entity extends Model<Entity> {
+export class Likemark extends Model<Likemark> {
   @PrimaryKey
   @Column({
     type: DataType.INTEGER,
     primaryKey: true,
-    autoIncrement: true
+    autoIncrement: false
   })
-  uuId: number
+  id: number
 
-  @ForeignKey(() => Entity)
   @Column({
     type: DataType.INTEGER,
     allowNull: false
@@ -40,5 +39,5 @@ export class Entity extends Model<Entity> {
 }
 
 // Add model to Sequelize instance.
-connection.addModels([Entity])
-console.log('Entity model is ready!')
+connection.addModels([Likemark])
+console.log('Likemark model is ready!')

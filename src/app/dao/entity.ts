@@ -1,28 +1,28 @@
 /**
  * Module dependencies.
  */
-import { Entity } from '../models/entity'
+import { Likemark } from '../models/entity'
 import { Request, Response } from 'express'
 
-export class EntityDAO {
-  public entityModel
+export class LikemarkDAO {
+  public likemarkModel
 
   constructor () {
-    this.entityModel = Entity
+    this.likemarkModel = Likemark
   }
 
   public get (req: Request, res: Response) {
-    const uuId: number = req.params.uuId
-    Entity.findOne<Entity>({
+    const id: number = req.params.id
+    Likemark.findOne<Likemark>({
       where: {
-        uuId: uuId
+        id: id
       }
     })
     .then(
-      (entity) => {
+      (likemark) => {
         return res.status(200).json({
           success: true,
-          message: entity
+          message: likemark
         })
       },
       (_err) => {
@@ -34,10 +34,10 @@ export class EntityDAO {
   }
 
   public getFirstChild (req: Request, res: Response) {
-    const uuId: number = req.params.uuId
-    Entity.findAll<Entity>({
+    const id: number = req.params.id
+    Likemark.findAll<Likemark>({
       where: {
-        parentId: uuId
+        parentId: id
       }
     })
     .then(
@@ -56,12 +56,12 @@ export class EntityDAO {
   }
 
   public list (req: Request, res: Response) {
-    Entity.findAll<Entity>()
+    Likemark.findAll<Likemark>()
     .then(
-      (entities) => {
+      (likemarks) => {
         return res.status(200).json({
           success: true,
-          message: entities
+          message: likemarks
         })
       },
       (_err) => {
@@ -73,13 +73,13 @@ export class EntityDAO {
   }
 
   public post (req: Request, res: Response) {
-    const entity: any = req.body
-    Entity.create<Entity>(entity)
+    const likemark: any = req.body
+    Likemark.create<Likemark>(likemark)
     .then(
-      (entity) => {
+      (likemark) => {
         return res.status(201).json({
           success: true,
-          message: entity
+          message: likemark
         })
       },
       (_err) => {
@@ -91,54 +91,54 @@ export class EntityDAO {
   }
 
   public update (req: Request, res: Response) {
-    const uuId: number = req.params.uuId
-    const entity: Object = req.body
+    const id: number = req.params.id
+    const likemark: Object = req.body
 
-    Entity.update<Entity>( entity, {
+    Likemark.update<Likemark>( likemark, {
       where: {
-        uuId: uuId
+        id: id
       }
     })
     .then(
-      (entity) => {
-        if (entity[0] === 1 ) {
+      (likemark) => {
+        if (likemark[0] === 1 ) {
           return res.status(200).json({
             success: true,
-            message: entity
+            message: likemark
           })
         }else {
           return res.status(400).json({
             success: false,
-            message: 'There is no entity associated to this uuId.'
+            message: 'There is no likemark associated to this id.'
           })
         }
       },
       (_err) => {
         return res.status(400).json({
           success: false,
-          message: _err.message
+          message: _err
         })
       })
   }
 
   public remove (req, res: any) {
-    const uuId: number = req.params.uuId
-    Entity.destroy({
+    const id: number = req.params.id
+    Likemark.destroy({
       where: {
-        uuId: uuId
+        id: id
       }
     })
     .then(
-      (entity) => {
-        if (entity === 1 ) {
+      (likemark) => {
+        if (likemark === 1 ) {
           return res.status(200).json({
             success: true,
-            message: entity
+            message: likemark
           })
         }else {
           return res.status(400).json({
             success: false,
-            message: 'There is no entity associated to this uuId.'
+            message: 'There is no likemark associated to this id.'
           })
         }
       },
