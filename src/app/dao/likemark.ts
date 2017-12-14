@@ -71,14 +71,14 @@ export class LikemarkDAO {
         })
         .then(
           (children) => {
-            let newLikemark
+            let likemarkWithChild
             if (likemark) {
-              newLikemark = likemark
-              newLikemark.dataValues['children'] = children
+              likemarkWithChild = likemark
+              likemarkWithChild.dataValues['children'] = children
             }
             return res.status(200).json({
               success: true,
-              message: newLikemark
+              message: likemarkWithChild
             })
           },
           (_err) => {
