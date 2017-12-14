@@ -12,6 +12,7 @@ const likemarkDAO = new LikemarkDAO()
  */
 router.get('/likemark/get/:id', likemarkDAO.get.bind(likemarkDAO))
 router.get('/likemark/getFirstChildren/:id', likemarkDAO.getFirstChildren.bind(likemarkDAO))
+router.get('/likemark/getWithFirstChildren/:id', likemarkDAO.getWithFirstChildren.bind(likemarkDAO))
 router.get('/likemark/list', likemarkDAO.list.bind(likemarkDAO))
 router.post('/likemark/post', likemarkDAO.post.bind(likemarkDAO))
 router.patch('/likemark/update/:id', likemarkDAO.update.bind(likemarkDAO))

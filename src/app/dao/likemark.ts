@@ -55,6 +55,47 @@ export class LikemarkDAO {
       })
   }
 
+  public getWithFirstChildren (req: Request, res: Response) {
+    const id: number = req.params.id
+    Likemark.findOne<Likemark>({
+      where: {
+        id: id
+      }
+    })
+    .then(
+      (likemark) => {
+        Likemark.findAll<Likemark>({
+          where: {
+            parentId: id
+          }
+        })
+        .then(
+          (children) => {
+            let newLikemark
+            if (likemark) {
+              newLikemark = likemark
+              newLikemark.dataValues['children'] = children
+            }
+            return res.status(200).json({
+              success: true,
+              message: newLikemark
+            })
+          },
+          (_err) => {
+            return res.status(400).json({
+              success: false,
+              message: _err.message
+            })
+          })
+      },
+      (_err) => {
+        return res.status(400).json({
+          success: false,
+          message: _err.message
+        })
+      })
+  }
+
   public list (req: Request, res: Response) {
     Likemark.findAll<Likemark>()
     .then(

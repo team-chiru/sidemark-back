@@ -49,37 +49,37 @@ function sum (a: number, b: number) {
 ### API routes
 
 #### GET
-Get a single entity by the id.
+Get a single likemark by the id.
 ```
-/entity/get/:id
-```
-
-Get the first level of children of an entity by id.
-```
-/entity/getFirstChildren/:id
+/likemark/get/:id
 ```
 
-List all entity in the database.
+Get the first level of children of an likemark by id.
 ```
-/entity/list
+/likemark/getFirstChildren/:id
+```
+
+List all likemark in the database.
+```
+/likemark/list
 ```
 
 #### POST
-Create a single entity.
+Create a single likemark.
 ```
-/entity/post
+/likemark/post
 ```
 
 #### PATCH
-Update an entity by id.
+Update an likemark by id.
 ```
-/entity/update/:id
+/likemark/update/:id
 ```
 
 #### DELETE
-Delete an entity by id.
+Delete an likemark by id.
 ```
-/entity/delete/:id
+/likemark/delete/:id
 ```
 
 
