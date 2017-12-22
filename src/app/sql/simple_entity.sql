@@ -9,6 +9,7 @@ CREATE TABLE IF NOT EXISTS Likemark (
     url TEXT
 );
 
+INSERT INTO Likemark (id, parentId, name, url) VALUES ('0', '-1','Folder1', 'www.likemark.io' );
 INSERT INTO Likemark (id, parentId, name, url) VALUES ('1', '0','Folder1', 'www.likemark.io' );
 INSERT INTO Likemark (id, parentId, name, url) VALUES ('11', '1', 'Folder11', 'www.likemark.io' );
 INSERT INTO Likemark (id, parentId, name, url) VALUES ('12', '1','Link12', 'www.likemark.io' );
