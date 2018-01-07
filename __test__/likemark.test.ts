@@ -19,8 +19,23 @@ const likemarkTest = {
   url: 'www.test.com'
 }
 
-// Get a Likemark into table Likemark.
-test('Test Likemark: Get alikemark.', done => {
+// Create a likemark into table Likemark.
+test('Test Likemark: Post to create likemark.', async done => {
+  let isCreated: boolean = false
+  Likemark.create<Likemark>(likemarkTest)
+    .then(
+      (likemark) => {
+        isCreated = true
+        expect(isCreated).toBe(true)
+        done()
+      },
+      (_err) => {
+        fail()
+      })
+})
+
+// Get a likemark from Likemark table.
+test('Test Likemark: Get a likemark.', done => {
   let isGet: boolean = false
   Likemark.findOne<Likemark>({
     where: {
@@ -40,9 +55,53 @@ test('Test Likemark: Get alikemark.', done => {
     })
 })
 
-// Create a Likemark into table Likemark.
-// test('Test Likemark: Post to create likemark.', async done => {
-//   let isCreated: boolean = false
-//   let likemark = await likemarkModel.create(likemarkTest)
-//   console.log(likemark)
-// })
+// Update an existing likemark from the Likemark table.
+test('Test Likemark: Update a likemark.', done => {
+  let isUpdated: boolean = false
+  const newLikeMark = {
+    parentId: 3,
+    name: 'test-updated',
+    url: 'www.test-updated.com'
+  }
+  Likemark.update<Likemark>( newLikeMark, {
+    where: {
+      id: likemarkTest.id
+    }
+  })
+  .then(
+    (likemark) => {
+      if (likemark[0] === 1 ) {
+        isUpdated = true
+      }else {
+        fail()
+      }
+      expect(isUpdated).toBe(true)
+      done()
+    },
+    (_err) => {
+      fail()
+    })
+})
+
+// Delete a likemark from the Likemark table.
+test('Test Likemark: Delete a likemark.', done => {
+  let isDeleted: boolean = false
+  Likemark.destroy({
+    where: {
+      id: likemarkTest.id
+    }
+  })
+  .then(
+    (likemark) => {
+      if (likemark === 1 ) {
+        isDeleted = true
+      }else {
+        fail()
+      }
+      expect(isDeleted).toBe(true)
+      done()
+    },
+    (_err) => {
+      fail()
+    })
+})
