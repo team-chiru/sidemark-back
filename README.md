@@ -32,7 +32,7 @@ dev
 
 ### Unit tests
 
-testing with Jest. to create a test create a file in the folder __test__ .
+Testing with Jest. If you want create a test create a file in the folder __test__ .
 
 test file example
 
@@ -44,6 +44,21 @@ test('adds 1 + 2 to equal 3', () => {
 function sum (a: number, b: number) {
   return a + b
 }
+
+To run the test, you need to run this command:
+```
+npm run test
+`
+
+To run the test, a database.db file must be initialized by the script.
+`simple_entity.sql`
+
+The database must be create in the `/src/app` folder.
+So, run those command to create the database:
+
+```
+cd src/app
+sqlite3 database.db < sql/simple_entity.sql
 ```
 
 ### API routes
