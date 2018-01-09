@@ -1,7 +1,8 @@
 import * as express from 'express'
+import { Router } from 'express'
 import * as bodyParser from 'body-parser'
-import { Router } from '../node_modules/@types/express-serve-static-core/index'
-import { router as route } from './app/routes/entity'
+import * as cors from 'cors'
+import { router as route } from './app/routes/likemark'
 
 export class AppRouter {
   private _app: any
@@ -14,6 +15,8 @@ export class AppRouter {
     this._app = express()
     // Setup body parser
     this._app.use(bodyParser.json())
+    // Setup cors to enable routes
+    this._app.use(cors())
     // Initialise the main route for express.
     this._app.use(this._mainRoute, route)
   }

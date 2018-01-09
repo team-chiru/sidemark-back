@@ -58,7 +58,7 @@ export class Server {
     let bind: string
     if ( typeof addr === 'string' ) {
       bind = 'pipe ' + addr
-    }else {
+    } else {
       bind = 'port ' + addr.port
     }
     console.log('Listening on ' + bind)
