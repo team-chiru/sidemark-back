@@ -44,8 +44,10 @@ test('adds 1 + 2 to equal 3', () => {
 function sum (a: number, b: number) {
   return a + b
 }
+```
 
 To run the test, you need to run this command:
+
 ```
 npm run test
 ```
