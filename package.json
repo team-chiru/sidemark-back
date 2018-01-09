@@ -1,5 +1,5 @@
 {
-  "name": "likemark-backend-ts",
+  "name": "sidemark-back",
   "version": "1.0.0",
   "description": "likemark-backend-ts",
   "main": "src/server.ts",
