@@ -58,6 +58,11 @@ Get the first level of children of an likemark by id.
 /likemark/getFirstChildren/:id
 ```
 
+Get a single likemark by id with his first level of children
+```
+/likemark/getWithFirstChildren/:id
+```
+
 List all likemark in the database.
 ```
 /likemark/list
