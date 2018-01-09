@@ -48,7 +48,7 @@ function sum (a: number, b: number) {
 To run the test, you need to run this command:
 ```
 npm run test
-`
+```
 
 To run the test, a database.db file must be initialized by the script.
 `simple_entity.sql`
