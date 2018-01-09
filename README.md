@@ -17,13 +17,10 @@ npm run lint
 If you have error with linter with sequelize-typescript, you need to copy paste from node_modules the folder sequelize-typescript into the folder node_modules/@types to not have ts compiler problems in vscode.  
 
 ### Development
-
-
-the start script start server on port 42506 that can be change in the file /.env root project directory.
+The start script start server on port 42506 that can be change in the file /.env root project directory.
 
 ```
 npm start
-
 ```
 
 ### Branch Structure
