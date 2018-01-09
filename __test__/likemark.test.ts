@@ -44,7 +44,7 @@ test('Test Likemark: Get a likemark.', done => {
   })
   .then(
     (likemark) => {
-      if (!(likemark === null)) {
+      if (likemark) {
         isGet = true
       }
       expect(isGet).toBe(true)

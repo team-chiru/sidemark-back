@@ -21,3 +21,6 @@ node_modules/
 
 # MacOS only
 .DS_Store
+
+# sqlite3 db
+*.db

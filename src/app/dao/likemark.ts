@@ -147,7 +147,7 @@ export class LikemarkDAO {
             success: true,
             message: likemark
           })
-        }else {
+        } else {
           return res.status(400).json({
             success: false,
             message: 'There is no likemark associated to this id.'
@@ -176,7 +176,7 @@ export class LikemarkDAO {
             success: true,
             message: likemark
           })
-        }else {
+        } else {
           return res.status(400).json({
             success: false,
             message: 'There is no likemark associated to this id.'
