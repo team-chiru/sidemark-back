@@ -1,4 +1,6 @@
 # sidemark-back
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fteam-chiru%2Fsidemark-back.svg?type=shield)](https://app.fossa.io/projects/git%2Bgithub.com%2Fteam-chiru%2Fsidemark-back?ref=badge_shield)
+
 ## Contribute
 ### Installing and Script
 
@@ -79,3 +81,7 @@ Delete a likemark by id.
 
 
 
+
+
+## License
+[![FOSSA Status](https://app.fossa.io/api/projects/git%2Bgithub.com%2Fteam-chiru%2Fsidemark-back.svg?type=large)](https://app.fossa.io/projects/git%2Bgithub.com%2Fteam-chiru%2Fsidemark-back?ref=badge_large)
