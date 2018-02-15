@@ -3,13 +3,11 @@ import { connection } from '../config/database'
 import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from 'sequelize-typescript'
 
 // Entity Table Model.
-@Table(
-  {
-    tableName: 'Likemark',
-    timestamps: false,
-    paranoid: false
-  }
-)
+@Table({
+  tableName: 'Likemark',
+  timestamps: false,
+  paranoid: false
+})
 export class Likemark extends Model<Likemark> {
   @PrimaryKey
   @Column({

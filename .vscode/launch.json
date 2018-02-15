@@ -2,52 +2,33 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "node",
+            "args": [],
+            "cwd": "${workspaceRoot}",
+            "env": {
+                "NODE_ENV": "development"
+            },
+            "console": "internalConsole",
+            "name": "DEBUG SIDEMARK-BACK",
+            "outFiles": [
+                "${workspaceRoot}/dist/**/*.js"
+            ],
+            "preLaunchTask": "COMPILE SIDEMARK-BACK",
+            "program": "${workspaceRoot}/src/main.ts",
             "request": "launch",
-            "name": "Debug JS",
-            "program": "${workspaceRoot}/js/main",
-            "cwd": "${workspaceRoot}"
-        },
-        {
-            "type": "node",
-            "request": "launch",
-            "name": "Debug TS",
-            "program": "${workspaceRoot}/ts/main",
-            "cwd": "${workspaceRoot}"
-        },
-        {
-            "name": "Launch JS on Chrome",
-            "type": "chrome",
-            "request": "launch",
-            "file": "${workspaceRoot}/js/index.html"
-        },
-        {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Debug JS on Chrome",
-            "url": "http://localhost:8080/js/index.html",
+            "runtimeArgs": [
+                "--nolazy"
+            ],
+            "runtimeExecutable": null,
             "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
+            "stopOnEntry": false,
+            "type": "node"
         },
         {
-            "type": "chrome",
-            "request": "launch",
-            "name": "Debug TS on Chrome",
-            "url": "http://localhost:8080/ts/index.html",
-            "sourceMaps": true,
-            "webRoot": "${workspaceRoot}"
-        },
-        {
-            "type": "chrome",
-            "name": "Attach on Chrome",
+            "name": "Attach",
+            "type": "node",
             "request": "attach",
-            "port": 9222
+            "port": 5858
         }
     ],
-    "compounds": [
-        {
-            "name": "Debug JS",
-            "configurations": ["Debug JS", "Debug JS on Chrome"]
-        }
-    ]
+    "compounds": []
 }
