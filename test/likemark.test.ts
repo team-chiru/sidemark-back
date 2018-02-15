@@ -20,7 +20,7 @@ const likemarkTest = {
 }
 
 // Create a likemark into table Likemark.
-test('Test Likemark: Post to create likemark.', async done => {
+test('Test Likemark: Post to create likemark.', done => {
   let isCreated: boolean = false
   Likemark.create<Likemark>(likemarkTest)
     .then(
@@ -63,7 +63,7 @@ test('Test Likemark: Update a likemark.', done => {
     name: 'test-updated',
     url: 'www.test-updated.com'
   }
-  Likemark.update<Likemark>( newLikeMark, {
+  Likemark.update<Likemark>(newLikeMark, {
     where: {
       id: likemarkTest.id
     }
@@ -72,7 +72,7 @@ test('Test Likemark: Update a likemark.', done => {
     (likemark) => {
       if (likemark[0] === 1 ) {
         isUpdated = true
-      }else {
+      } else {
         fail()
       }
       expect(isUpdated).toBe(true)
@@ -95,7 +95,7 @@ test('Test Likemark: Delete a likemark.', done => {
     (likemark) => {
       if (likemark === 1 ) {
         isDeleted = true
-      }else {
+      } else {
         fail()
       }
       expect(isDeleted).toBe(true)
