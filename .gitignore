@@ -24,3 +24,5 @@ node_modules/
 
 # sqlite3 db
 *.db
+
+dist
