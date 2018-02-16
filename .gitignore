@@ -1,9 +1,6 @@
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-#Visual Studio configuration
-.vscode
-
 # Dependency directories
 node_modules/
 
