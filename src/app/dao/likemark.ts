@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-import { Likemark } from '../models/likemark'
+import { Likemark } from '../models/Likemark'
 import { Request, Response } from 'express'
 
 export class LikemarkDAO {

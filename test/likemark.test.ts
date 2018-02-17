@@ -1,14 +1,16 @@
 import { connection as connection } from '../src/app/config/database'
-import { Likemark } from '../src/app/models/likemark'
+import { Likemark } from '../src/app/models/Likemark'
+
+let originalTimeout
 
 // Test database connection and set server
-connection
-.authenticate()
-.then(() => {
-  console.log('Connection has been established successfully.')
-})
-.catch(err => {
-  console.error('Unable to connect to the database:', err)
+beforeAll(() => {
+  connection.authenticate().then(() => {
+    console.log('Connection has been established successfully.')
+  })
+  .catch(err => {
+    console.error('Unable to connect to the database:', err)
+  })
 })
 
 // Likemark that we use for test.
@@ -32,7 +34,7 @@ test('Test Likemark: Post to create likemark.', done => {
       (_err) => {
         fail()
       })
-})
+}, 10000)
 
 // Get a likemark from Likemark table.
 test('Test Likemark: Get a likemark.', done => {
@@ -53,7 +55,7 @@ test('Test Likemark: Get a likemark.', done => {
     (_err) => {
       fail()
     })
-})
+}, 10000)
 
 // Update an existing likemark from the Likemark table.
 test('Test Likemark: Update a likemark.', done => {
@@ -81,7 +83,7 @@ test('Test Likemark: Update a likemark.', done => {
     (_err) => {
       fail()
     })
-})
+}, 10000)
 
 // Delete a likemark from the Likemark table.
 test('Test Likemark: Delete a likemark.', done => {
@@ -104,4 +106,4 @@ test('Test Likemark: Delete a likemark.', done => {
     (_err) => {
       fail()
     })
-})
+}, 10000)
