@@ -14,10 +14,13 @@ const simple = {
 test('Test Export: Export a simple likemark object', () => {
   const test = {
     name: 'Test',
-    likemarks: [{
+    url: 'www.test.com',
+    bookmarks: [{
       name: 'L1',
+      url: 'www.test.com',
       children: [{
-        name: 'L11'
+        name: 'L11',
+        url: 'www.test.com'
       }]
     }, {
       name: 'L2'
