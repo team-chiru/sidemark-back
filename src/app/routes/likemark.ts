@@ -15,5 +15,6 @@ router.get('/likemark/getFirstChildren/:id', likemarkDAO.getFirstChildren.bind(l
 router.get('/likemark/getWithFirstChildren/:id', likemarkDAO.getWithFirstChildren.bind(likemarkDAO))
 router.get('/likemark/list', likemarkDAO.list.bind(likemarkDAO))
 router.post('/likemark/post', likemarkDAO.post.bind(likemarkDAO))
+router.post('/likemark/import', likemarkDAO.import.bind(likemarkDAO))
 router.patch('/likemark/update/:id', likemarkDAO.update.bind(likemarkDAO))
 router.delete('/likemark/delete/:id', likemarkDAO.remove.bind(likemarkDAO))

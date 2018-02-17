@@ -190,4 +190,14 @@ export class LikemarkDAO {
         })
       })
   }
+
+  import (req: Request, res: Response) {
+    // TODO: import likemark into database.
+    console.log('sa rentre')
+    let data: string = ''
+    req.on('data', function (chunk) {
+      data += chunk
+      console.log(data)
+    })
+  }
 }
