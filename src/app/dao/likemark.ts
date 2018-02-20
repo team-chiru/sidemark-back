@@ -3,6 +3,7 @@
  */
 import { Likemark } from '../models/Likemark'
 import { Request, Response } from 'express'
+import * as netscapeParse from 'bookmarks-parser'
 
 export class LikemarkDAO {
   public likemarkModel
@@ -197,7 +198,19 @@ export class LikemarkDAO {
     let data: string = ''
     req.on('data', function (chunk) {
       data += chunk
-      console.log(data)
+      // console.log(data)
+      netscapeParse(data, function (err, root) {
+        if (err) {
+          console.log(err)
+        }
+        // console.log(res.parser);
+        console.log(root.bookmarks[0])
+      })
+
+      return res.status(200).json({
+        success: true,
+        message: 'parse done.'
+      })
     })
   }
 }
