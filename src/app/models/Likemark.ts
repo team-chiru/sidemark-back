@@ -1,7 +1,7 @@
 // Module dependencies.
 import { connection } from '../config/database'
 import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from 'sequelize-typescript'
-import { list, object, serializable } from 'serializr'
+import { list, object, alias, serializable } from 'serializr'
 
 // Entity Table Model.
 @Table({
@@ -28,7 +28,7 @@ export class Likemark extends Model<Likemark> {
     type: DataType.TEXT,
     allowNull: true
   })
-  @serializable
+  @serializable(alias('title'))
   name: string
 
   @Column({

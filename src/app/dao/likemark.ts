@@ -2,8 +2,11 @@
  * Module dependencies.
  */
 import { Likemark } from '../models/Likemark'
+import { Root } from '../models/Root'
 import { Request, Response } from 'express'
 import * as netscapeParse from 'bookmarks-parser'
+
+import { serialize, deserialize } from 'serializr'
 
 export class LikemarkDAO {
   public likemarkModel
@@ -202,12 +205,14 @@ export class LikemarkDAO {
       })
 
       fs.on('end', function () {
-        netscapeParse(html, function (err, root) {
+        netscapeParse(html, function (err, json) {
           if (err) {
             console.log(err)
           }
+
           // console.log(res.parser);
-          console.log(root.bookmarks[0])
+          const root = deserialize(Root, json)
+          console.log(root)
         })
       })
 
