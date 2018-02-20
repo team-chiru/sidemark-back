@@ -1,6 +1,7 @@
 import * as express from 'express'
 import { Router } from 'express'
 import * as bodyParser from 'body-parser'
+import * as busboy from 'connect-busboy'
 import * as cors from 'cors'
 import { router as route } from './app/routes/likemark'
 
@@ -15,6 +16,8 @@ export class AppRouter {
     this._app = express()
     // Setup body parser
     this._app.use(bodyParser.json())
+    // upload files
+    this._app.use(busboy())
     // Setup cors to enable routes
     this._app.use(cors())
     // Initialise the main route for express.

@@ -163,7 +163,7 @@ export class LikemarkDAO {
       })
   }
 
-  public remove (req, res: any) {
+  public remove (req: Request, res: Response) {
     const id: number = req.params.id
     Likemark.destroy({
       where: {
@@ -192,25 +192,26 @@ export class LikemarkDAO {
       })
   }
 
-  import (req: Request, res: Response) {
-    // TODO: import likemark into database.
-    console.log('sa rentre')
-    let data: string = ''
-    req.on('data', function (chunk) {
-      data += chunk
-      // console.log(data)
-      netscapeParse(data, function (err, root) {
-        if (err) {
-          console.log(err)
-        }
-        // console.log(res.parser);
-        console.log(root.bookmarks[0])
+
+  import (req: any, res: Response) {
+    req.pipe(req.busboy)
+    req.busboy.on('file', function (fieldname, fs, filename) {
+      let html = ''
+
+      fs.on('data', function(data) {
+        html += data
       })
 
-      return res.status(200).json({
-        success: true,
-        message: 'parse done.'
+      fs.on('end', function() {
+        netscapeParse(html, function (err, root) {
+          if (err) {
+            console.log(err)
+          }
+          // console.log(res.parser);
+          console.log(root.bookmarks[0])
+        })
       })
+
     })
   }
 }
