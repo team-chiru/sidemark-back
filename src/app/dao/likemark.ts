@@ -192,17 +192,16 @@ export class LikemarkDAO {
       })
   }
 
-
   import (req: any, res: Response) {
     req.pipe(req.busboy)
     req.busboy.on('file', function (fieldname, fs, filename) {
       let html = ''
 
-      fs.on('data', function(data) {
+      fs.on('data', function (data) {
         html += data
       })
 
-      fs.on('end', function() {
+      fs.on('end', function () {
         netscapeParse(html, function (err, root) {
           if (err) {
             console.log(err)

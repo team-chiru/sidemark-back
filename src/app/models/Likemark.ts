@@ -10,21 +10,6 @@ import { list, object, serializable } from 'serializr'
   paranoid: false
 })
 export class Likemark extends Model<Likemark> {
-  constructor() {
-    super()
-
-    Likemark.findAll<Likemark>({
-      where: {
-        parentId: this.id
-      }
-    }
-    ).then((children) => {
-      this.children = children
-    }, (err) => {
-      console.log(err)
-    });
-  }
-
   @PrimaryKey
   @Column({
     type: DataType.INTEGER,
