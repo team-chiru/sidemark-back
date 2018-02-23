@@ -23,14 +23,15 @@ export class Likemark extends Model<Likemark> {
     type: DataType.TEXT,
     allowNull: false
   })
+  @serializable
   parentId: String
 
   @Column({
     type: DataType.TEXT,
     allowNull: true
   })
-  @serializable(alias('title'))
-  name: string
+  @serializable
+  title: string
 
   @Column({
     type: DataType.TEXT,

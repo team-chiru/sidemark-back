@@ -4,7 +4,6 @@
 import { Likemark } from '../models/Likemark'
 import { Root } from '../models/Root'
 import { Netscape } from '../logic/Netscape'
-import { ModelBuilder } from '../logic/ModelBuilder'
 import { Request, Response } from 'express'
 import * as fs from 'memfs'
 
@@ -206,13 +205,7 @@ export class LikemarkDAO {
       })
 
       fs.on('end', function () {
-        const netscape = new Netscape()
-
-        netscape.import(html).then(
-          (root) => {
-            return ModelBuilder.createTree(root)
-          }
-        ).then(
+        Netscape.import(html).then(
           (result) => {
             if (!result) {
               throw new Error('There is no imported likemarks')
@@ -236,13 +229,11 @@ export class LikemarkDAO {
   }
 
   public export (req: Request, res: Response) {
-    ModelBuilder.fetchRoot().then(
-      (root) => {
-        const netscape = new Netscape()
-
+    Netscape.export().then(
+      (html) => {
         return res.status(200)
           .attachment('likemark.html')
-          .end(netscape.export(root))
+          .end(html)
       }
     ).catch(
       (err) => {
