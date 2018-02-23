@@ -1,8 +1,12 @@
 import { Likemark } from '../models/Likemark'
 import * as PromiseLike from 'bluebird'
 import { Root } from '../models/Root'
+import * as uuidv4 from 'uuid/v4'
+import { serialize } from 'serializr'
 
 export class ModelBuilder {
+  buffer: Likemark[] = []
+
   static fetchRoot (): PromiseLike<Root> {
     return Likemark.findAll<Likemark>().then(
       (all) => {
@@ -12,8 +16,45 @@ export class ModelBuilder {
     )
   }
 
+  static createLikemark (like: Likemark, buffer: Likemark[]) {
+    like.id = uuidv4()
+
+    like.children.forEach(
+      (child) => {
+        child.parentId = like.id
+      }
+    )
+
+    buffer.push(like)
+  }
+
   static createTree (root: Root) {
-    return Promise.resolve(false)
+    let buffer: Likemark[] = []
+
+    const buildLikemark = (node: Likemark) => {
+      ModelBuilder.createLikemark(node, buffer)
+      node.children.forEach(buildLikemark)
+    }
+
+    root.bookmarks.forEach(
+      (bookmark: Likemark) => {
+        bookmark.parentId = '0'
+        buildLikemark(bookmark)
+      })
+
+    PromiseLike.all(buffer.map(
+      (like) => {
+        const raw = serialize(like)
+
+        return Likemark.create<Likemark>(raw).then(
+          (likemark) => {
+            console.log(likemark)
+          },
+          (_err) => {
+            console.log(_err)
+          })
+      }
+    ))
   }
 
   private buildTree (bookmarks): Root {

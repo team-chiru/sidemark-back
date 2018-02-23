@@ -12,18 +12,18 @@ import { list, object, alias, identifier, serializable } from 'serializr'
 export class Likemark extends Model<Likemark> {
   @PrimaryKey
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.TEXT,
     primaryKey: true,
     autoIncrement: false
   })
   @serializable(identifier())
-  id: number
+  id: String
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.TEXT,
     allowNull: false
   })
-  parentId: number
+  parentId: String
 
   @Column({
     type: DataType.TEXT,
