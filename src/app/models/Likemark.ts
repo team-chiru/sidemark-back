@@ -1,7 +1,7 @@
 // Module dependencies.
 import { connection } from '../config/database'
 import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from 'sequelize-typescript'
-import { list, object, alias, serializable } from 'serializr'
+import { list, object, alias, identifier, serializable } from 'serializr'
 
 // Entity Table Model.
 @Table({
@@ -16,6 +16,7 @@ export class Likemark extends Model<Likemark> {
     primaryKey: true,
     autoIncrement: false
   })
+  @serializable(identifier())
   id: number
 
   @Column({
@@ -39,11 +40,11 @@ export class Likemark extends Model<Likemark> {
   url: string
 
   @serializable(list(object(Likemark)))
-  children: Array<Likemark> = []
+  children: Likemark[] = []
 
   @serializable
   get isFolder (): boolean {
-    return this.children.length > 0 ? true : false
+    return this.children.length > 0
   }
 }
 

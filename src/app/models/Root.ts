@@ -6,5 +6,5 @@ export class Root {
   name: String = 'Likemarks'
 
   @serializable(list(object(Likemark)))
-    bookmarks: Likemark[] = []
+  bookmarks: Likemark[] = []
 }

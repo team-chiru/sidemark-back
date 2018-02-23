@@ -3,10 +3,10 @@
  */
 import { Likemark } from '../models/Likemark'
 import { Root } from '../models/Root'
+import { Netscape } from '../logic/Netscape'
+import { ModelBuilder } from '../logic/ModelBuilder'
 import { Request, Response } from 'express'
-import * as netscapeParse from 'bookmarks-parser'
-
-import { serialize, deserialize } from 'serializr'
+import * as fs from 'memfs'
 
 export class LikemarkDAO {
   public likemarkModel
@@ -195,8 +195,9 @@ export class LikemarkDAO {
       })
   }
 
-  import (req: any, res: Response) {
+  public import (req: any, res: Response) {
     req.pipe(req.busboy)
+
     req.busboy.on('file', function (fieldname, fs, filename) {
       let html = ''
 
@@ -205,17 +206,51 @@ export class LikemarkDAO {
       })
 
       fs.on('end', function () {
-        netscapeParse(html, function (err, json) {
-          if (err) {
-            console.log(err)
+        const netscape = new Netscape()
+
+        netscape.import(html).then(
+          (root) => {
+            return ModelBuilder.createTree(root)
           }
+        ).then(
+          (result) => {
+            if (!result) {
+              throw new Error('There is no imported likemarks')
+            }
 
-          // console.log(res.parser);
-          const root = deserialize(Root, json)
-          console.log(root)
-        })
+            return res.status(201).json({
+              success: true,
+              message: result
+            })
+          }
+        ).catch(
+          (err) => {
+            return res.status(400).json({
+              success: false,
+              message: err.message
+            })
+          }
+        )
       })
-
     })
+  }
+
+  public export (req: Request, res: Response) {
+    ModelBuilder.fetchRoot().then(
+      (root) => {
+        const netscape = new Netscape()
+
+        return res.status(200)
+          .attachment('likemark.html')
+          .end(netscape.export(root))
+      }
+    ).catch(
+      (err) => {
+        return res.status(400).json({
+          success: false,
+          message: err.message
+        })
+      }
+    )
   }
 }

@@ -1,3 +1,4 @@
 {
-    "editor.lineNumbers": "on"
+    "editor.lineNumbers": "on",
+    "editor.tabSize": 2
 }
