@@ -4,7 +4,6 @@ import { Likemark } from '../src/models/Likemark'
 // Test database connection and set server
 beforeAll(() => {
   return connection.authenticate().then(() => {
-    connection.addModels([Likemark])
     console.log('Connection has been established successfully.')
   })
   .catch(err => {
