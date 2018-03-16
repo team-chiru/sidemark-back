@@ -21,7 +21,7 @@ const tests = [
 ]
 
 // Test database connection and set server
-beforeAll(() => {
+beforeEach(() => {
   return connection.authenticate().then(() => {
     console.log('Connection has been established successfully.')
   }).catch(err => {
@@ -29,13 +29,30 @@ beforeAll(() => {
   })
 })
 
+afterEach(() => {
+  return Likemark.destroy({
+    where: {}
+  }).then(() => {
+    console.log('Connection has been successfully cleared.')
+  })
+})
+
 test('Test Export: Export a simple likemark object', () => {
   const netscape = new Netscape()
   const expected = fs.readFileSync('test/netscape.html', 'utf8')
 
-  Likemark.bulkCreate<Likemark>(tests).then(
+  return Likemark.bulkCreate<Likemark>(tests).then(
     () => Netscape.export()
   ).then(
     exported => expect(exported).toBe(expected)
+  )
+})
+
+test('Test Import: Import a simple likemark object', () => {
+  const toImport = fs.readFileSync('test/netscape.html', 'utf8')
+
+  // expect empty db
+  return Likemark.findAll<Likemark>().then(
+    (likemarks) => { console.log(likemarks) }
   )
 })
