@@ -3,7 +3,7 @@ import { Router } from 'express'
 import * as bodyParser from 'body-parser'
 import * as busboy from 'connect-busboy'
 import * as cors from 'cors'
-import { router as route } from './app/routes/likemark'
+import { router as route } from './routes/likemark'
 
 export class AppRouter {
   private _app: any

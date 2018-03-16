@@ -4,14 +4,12 @@ import { Root } from '../models/Root'
 import * as uuidv4 from 'uuid/v4'
 import { serialize } from 'serializr'
 
-export class Builder {
-  buffer: Likemark[] = []
-
-  static fetchRoot (): PromiseLike<Root> {
-    return Likemark.findAll<Likemark>().then(Builder.sortTree)
+export class LikemarkTree {
+  static get (): PromiseLike<Root> {
+    return Likemark.findAll<Likemark>().then(LikemarkTree.sort)
   }
 
-  static sortTree (all: Likemark[]) {
+  static sort (all: Likemark[]) {
     let root = new Root()
 
     all.forEach((node) => {
@@ -31,7 +29,7 @@ export class Builder {
     return root
   }
 
-  static createTree (root: Root): PromiseLike<Likemark[]> {
+  static create (root: Root): PromiseLike<Likemark[]> {
     let buffer: Likemark[] = []
 
     const buildLikemark = (like: Likemark) => {

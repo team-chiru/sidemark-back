@@ -23,13 +23,13 @@ npm start
 
 ### Unit tests
 
-To run the test, a database.db file must be initialized by the script: `simple_entity.sql`
+To run the test, a database.db file must be initialized by the script: `LikemarkTable.sql`
 
-The database must be create in the `/src/app` folder. So, run those commands to create the database:
+The database must be create in the `/src` folder. So, run those commands to create the database:
 
 ```
-cd src/app
-sqlite3 database.db < sql/simple_entity.sql
+cd src
+sqlite3 database.db < sql/LikemarkTable.sql
 ```
 and run this command to start unit test:
 

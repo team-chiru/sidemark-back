@@ -48,7 +48,3 @@ export class Likemark extends Model<Likemark> {
     return this.children.length > 0
   }
 }
-
-// Add model to Sequelize instance.
-connection.addModels([Likemark])
-console.log('Likemark model is ready!')

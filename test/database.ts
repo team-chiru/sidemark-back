@@ -1,6 +1,7 @@
 /**
  * Module dependencies.
  */
+
 import { Sequelize } from 'sequelize-typescript'
 import * as dotenv from 'dotenv'
 
@@ -16,7 +17,7 @@ const storage = process.env.SQLITE_PATH as string
 /**
  * Initialise SQLITE database connection.
  */
-export const memoryConnection = new Sequelize({
+export const connection = new Sequelize({
   database: database,
   dialect: 'sqlite',
   username: 'username',

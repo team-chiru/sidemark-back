@@ -7,7 +7,7 @@ import { Netscape } from '../logic/Netscape'
 import { Request, Response } from 'express'
 import * as fs from 'memfs'
 
-export class LikemarkDAO {
+export class LikemarkAPI {
   public likemarkModel
 
   constructor () {

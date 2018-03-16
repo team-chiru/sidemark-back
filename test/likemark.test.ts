@@ -1,23 +1,26 @@
-import { connection as connection } from '../src/app/config/database'
-import { Likemark } from '../src/app/models/Likemark'
-
-let originalTimeout
+import { connection } from './database'
+import { Likemark } from '../src/models/Likemark'
 
 // Test database connection and set server
 beforeAll(() => {
-  connection.authenticate().then(() => {
+  return connection.authenticate().then(() => {
+    connection.addModels([Likemark])
     console.log('Connection has been established successfully.')
   })
   .catch(err => {
     console.error('Unable to connect to the database:', err)
   })
+}, 10000)
+
+afterAll(() => {
+  connection.close()
 })
 
 // Likemark that we use for test.
 const likemarkTest = {
   id: 31,
   parentId: 3,
-  name: 'test',
+  title: 'test',
   url: 'www.test.com'
 }
 

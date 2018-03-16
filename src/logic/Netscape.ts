@@ -2,7 +2,7 @@ import { Root } from '../models/Root'
 import * as netscapeParse from 'bookmarks-parser'
 import { serialize, deserialize } from 'serializr'
 import * as Mustache from 'mustache'
-import { Builder } from '../logic/Builder'
+import { LikemarkTree } from '../dao/LikemarkTree'
 import * as PromiseLike from 'bluebird'
 
 import * as fs from 'fs'
@@ -17,7 +17,7 @@ export class Netscape {
       likemark: fs.readFileSync(path + '/Likemark.mustache', 'utf8')
     }
 
-    return Builder.fetchRoot().then(
+    return LikemarkTree.get().then(
       (root) => {
         return Mustache.render(templates.root, serialize(root), {
           Likemark: templates.likemark
@@ -36,7 +36,7 @@ export class Netscape {
 
           const root = deserialize(Root, json)
 
-          Builder.createTree(root).then(
+          LikemarkTree.create(root).then(
             (likemarks) => {
               resolve(likemarks)
             }
