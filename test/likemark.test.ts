@@ -9,7 +9,7 @@ beforeAll(() => {
   .catch(err => {
     console.error('Unable to connect to the database:', err)
   })
-}, 10000)
+}, 3000)
 
 afterAll(() => {
   connection.close()
@@ -36,7 +36,7 @@ test('Test Likemark: Post to create likemark.', done => {
       (_err) => {
         fail()
       })
-}, 10000)
+}, 3000)
 
 // Get a likemark from Likemark table.
 test('Test Likemark: Get a likemark.', done => {
@@ -57,7 +57,7 @@ test('Test Likemark: Get a likemark.', done => {
     (_err) => {
       fail()
     })
-}, 10000)
+}, 3000)
 
 // Update an existing likemark from the Likemark table.
 test('Test Likemark: Update a likemark.', done => {
@@ -85,7 +85,7 @@ test('Test Likemark: Update a likemark.', done => {
     (_err) => {
       fail()
     })
-}, 10000)
+}, 3000)
 
 // Delete a likemark from the Likemark table.
 test('Test Likemark: Delete a likemark.', done => {
@@ -108,4 +108,4 @@ test('Test Likemark: Delete a likemark.', done => {
     (_err) => {
       fail()
     })
-}, 10000)
+}, 3000)
