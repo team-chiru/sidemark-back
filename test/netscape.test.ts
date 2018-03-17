@@ -6,19 +6,68 @@ import * as fs from 'fs'
 import { connection } from './database'
 import { Netscape } from '../src/logic/Netscape'
 import { Likemark } from '../src/models/Likemark'
+import { LikemarkRow } from '../src/models/LikemarkRow'
+import { LikemarkTree } from '../src/dao/LikemarkTree'
+import { Root } from '../src/models/Root'
 
-const tests = [
-  {id: '0', parentId: '-1', title: 'Folder1', url: 'http://likemark.io'},
-  {id: '1', parentId: '0', title: 'Folder1', url: 'http://likemark.io'},
-  {id: '11', parentId: '1', title: 'Folder11', url: 'http://likemark.io'},
-  {id: '12', parentId: '1', title: 'Link12', url: 'http://likemark.io'},
-  {id: '2', parentId: '0', title: 'Folder2', url: 'http://likemark.io'},
-  {id: '21', parentId: '2', title: 'Folder21', url: 'http://likemark.io'},
-  {id: '22', parentId: '2', title: 'Folder22', url: 'http://likemark.io'},
-  {id: '23', parentId: '2', title: 'Folder23', url: 'http://likemark.io'},
-  {id: '231', parentId: '23', title: 'Folder231', url: 'http://likemark.io'},
-  {id: '3', parentId: '0', title: 'Link3', url: 'http://likemark.io'}
-]
+const sample = deserialize(Root, {
+  name: 'Likemarks',
+  bookmarks: [{
+    id: '0',
+    parentId: '-1',
+    title: 'Folder0',
+    url: null,
+    children: [{
+      id: '1',
+      parentId: '0',
+      title: 'Folder1',
+      url: null,
+      children: [{
+        id: '11',
+        parentId: '1',
+        title: 'Folder11',
+        url: 'http://likemark.io'
+      }, {
+        id: '12',
+        parentId: '1',
+        title: 'Link12',
+        url: 'http://likemark.io'
+      }]
+    }, {
+      id: '2',
+      parentId: '0',
+      title: 'Folder2',
+      url: null,
+      children: [{
+        id: '21',
+        parentId: '2',
+        title: 'Folder21',
+        url: 'http://likemark.io'
+      }, {
+        id: '22',
+        parentId: '2',
+        title: 'Folder22',
+        url: 'http://likemark.io'
+      }, {
+        id: '23',
+        parentId: '2',
+        title: 'Folder23',
+        url: null,
+        children: [{
+          id: '231',
+          parentId: '23',
+          title: 'Folder231',
+          url: 'http://likemark.io'
+        }]
+      }]
+    }, {
+      id: '3',
+      parentId: '0',
+      title: 'Link3',
+      url: 'http://likemark.io'
+    }]
+  }]
+})
 
 // Test database connection and set server
 beforeEach(() => {
@@ -30,23 +79,37 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  return Likemark.destroy({
+  return LikemarkRow.destroy({
     where: {}
   }).then(() => {
     console.log('Connection has been successfully cleared.')
   })
 })
 
-test('Test Export: Export a simple likemark object', () => {
-  const netscape = new Netscape()
-  const expected = fs.readFileSync('test/netscape.html', 'utf8')
-
-  return Likemark.findAll<Likemark>().then(
+test('Test Tree Fetching', () => {
+  return LikemarkRow.findAll<LikemarkRow>().then(
     // expect empty db
     empty => expect(empty).toEqual([])
   ).then(
     // create initial set
-    () => Likemark.bulkCreate<Likemark>(tests)
+    () => LikemarkTree.create(sample)
+  ).then(
+    // fetch all the tree
+    () => LikemarkTree.get()
+  ).then(
+    root => expect(root).toEqual(sample)
+  )
+})
+
+test('Test Export: Export a simple likemark object', () => {
+  const expected = fs.readFileSync('test/netscape.html', 'utf8')
+
+  return LikemarkRow.findAll<LikemarkRow>().then(
+    // expect empty db
+    empty => expect(empty).toEqual([])
+  ).then(
+    // create initial set
+    () => LikemarkTree.create(sample)
   ).then(
     // export the initialized db
     () => Netscape.export()
@@ -59,7 +122,7 @@ test('Test Import: Import a simple likemark object', () => {
   const toImport = fs.readFileSync('test/netscape.html', 'utf8')
 
   // expect empty db
-  return Likemark.findAll<Likemark>().then(
+  return LikemarkRow.findAll<LikemarkRow>().then(
     empty => expect(empty).toEqual([])
   )
 })
