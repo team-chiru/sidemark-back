@@ -1,10 +1,9 @@
 /**
  * Module dependencies.
  */
-
 import { Sequelize } from 'sequelize-typescript'
 import * as dotenv from 'dotenv'
-import { Likemark } from '../src/models/Likemark'
+import { LikemarkRow } from '../src/models/LikemarkRow'
 
 // Load environment variables
 dotenv.config()
@@ -45,4 +44,4 @@ connection.getQueryInterface().createTable('Likemark',
     }
   })
 
-connection.addModels([Likemark])
+connection.addModels([LikemarkRow])

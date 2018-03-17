@@ -18,35 +18,27 @@ export class Netscape {
     }
 
     return LikemarkTree.get().then(
-      (root) => {
-        return Mustache.render(templates.root, serialize(root), {
-          Likemark: templates.likemark
-        })
-      }
+      root => Mustache.render(templates.root, serialize(root), {
+        Likemark: templates.likemark
+      })
     )
   }
 
   static import (html: String): PromiseLike<Likemark[]> {
-    return new PromiseLike(
-      (resolve, reject) => {
-        netscapeParse(html, (err, json) => {
-          if (err) {
-            reject(err)
+    return new PromiseLike((resolve, reject) => {
+      netscapeParse(html, (err, json) => {
+        if (err) {
+          reject(err)
+        }
+
+        const root = deserialize(Root, json)
+
+        LikemarkTree.create(root).then(
+          (likemarks) => {
+            resolve(likemarks)
           }
-
-          const root = deserialize(Root, json)
-
-          LikemarkTree.create(root).then(
-            (likemarks) => {
-              resolve(likemarks)
-            }
-          ).catch(
-            (err) => {
-              reject(err)
-            }
-          )
-        })
-      }
-    )
+        ).catch(err => reject(err))
+      })
+    })
   }
 }

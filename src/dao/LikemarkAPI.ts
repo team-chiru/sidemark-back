@@ -1,6 +1,7 @@
 /**
  * Module dependencies.
  */
+import { LikemarkRow } from '../models/LikemarkRow'
 import { Likemark } from '../models/Likemark'
 import { Root } from '../models/Root'
 import { Netscape } from '../logic/Netscape'
@@ -10,188 +11,154 @@ import * as fs from 'memfs'
 export class LikemarkAPI {
   public likemarkModel
 
-  constructor () {
-    this.likemarkModel = Likemark
-  }
-
   public get (req: Request, res: Response) {
     const id: number = req.params.id
-    Likemark.findOne<Likemark>({
-      where: {
-        id: id
-      }
+
+    LikemarkRow.findOne<LikemarkRow>({
+      where: { id: id }
     })
-    .then(
-      (likemark) => {
-        return res.status(200).json({
-          success: true,
-          message: likemark
-        })
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err.message
-        })
+    .then(likemark => {
+      if (!likemark) {
+        throw new Error('Get returns an empty row')
+      }
+
+      res.status(200).json({
+        success: true,
+        message: Likemark.fromRow(likemark)
       })
+    })
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 
   public getFirstChildren (req: Request, res: Response) {
     const id: number = req.params.id
-    Likemark.findAll<Likemark>({
-      where: {
-        parentId: id
-      }
+
+    LikemarkRow.findAll<LikemarkRow>({
+      where: { parentId: id }
     })
-    .then(
-      (children) => {
-        return res.status(200).json({
-          success: true,
-          message: children
-        })
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err.message
-        })
-      })
+    .then(children => res.status(200).json({
+      success: true,
+      message: children.map(
+        child => Likemark.fromRow(child)
+      )
+    }))
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 
   public getWithFirstChildren (req: Request, res: Response) {
     const id: number = req.params.id
-    Likemark.findOne<Likemark>({
-      where: {
-        id: id
-      }
+    let likemarkWithChild: Likemark
+
+    LikemarkRow.findOne<LikemarkRow>({
+      where: { id: id }
     })
-    .then(
-      (likemark) => {
-        Likemark.findAll<Likemark>({
-          where: {
-            parentId: id
-          }
-        })
-        .then(
-          (children) => {
-            let likemarkWithChild
-            if (likemark) {
-              likemarkWithChild = likemark
-              likemarkWithChild.dataValues['children'] = children
-            }
-            return res.status(200).json({
-              success: true,
-              message: likemarkWithChild
-            })
-          },
-          (_err) => {
-            return res.status(400).json({
-              success: false,
-              message: _err.message
-            })
-          })
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err.message
-        })
+    .then(likemark => {
+      if (!likemark) {
+        throw new Error('GetWithFirstChildren returns an empty likemark')
+      }
+
+      likemarkWithChild = Likemark.fromRow(likemark)
+
+      return LikemarkRow.findAll<LikemarkRow>({
+        where: { parentId: id }
       })
+    })
+    .then(children => {
+      likemarkWithChild.children = children.map(
+        row => Likemark.fromRow(row)
+      )
+
+      res.status(200).json({
+        success: true,
+        message: likemarkWithChild
+      })
+    })
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 
   public list (req: Request, res: Response) {
-    Likemark.findAll<Likemark>()
-    .then(
-      (likemarks) => {
-        return res.status(200).json({
-          success: true,
-          message: likemarks
-        })
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err.message
-        })
-      })
+    LikemarkRow.findAll<LikemarkRow>()
+    .then(likemarks => res.status(200).json({
+      success: true,
+      message: likemarks.map(
+        row => Likemark.fromRow(row)
+      )
+    }))
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 
   public post (req: Request, res: Response) {
     const likemark: any = req.body
-    Likemark.create<Likemark>(likemark)
-    .then(
-      (likemark) => {
-        return res.status(201).json({
-          success: true,
-          message: likemark
-        })
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err.message
-        })
+
+    LikemarkRow.create<LikemarkRow>(likemark)
+    .then(likemark => {
+      if (!likemark) {
+        throw new Error('Post returns an empty likemark')
+      }
+
+      res.status(201).json({
+        success: true
       })
+    })
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 
   public update (req: Request, res: Response) {
     const id: number = req.params.id
     const likemark: Object = req.body
 
-    Likemark.update<Likemark>( likemark, {
-      where: {
-        id: id
-      }
+    LikemarkRow.update<LikemarkRow>(likemark, {
+      where: { id: id }
     })
-    .then(
-      (likemark) => {
-        if (likemark[0] === 1 ) {
-          return res.status(200).json({
-            success: true,
-            message: likemark
-          })
-        } else {
-          return res.status(400).json({
-            success: false,
-            message: 'There is no likemark associated to this id.'
-          })
-        }
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err
-        })
+    .then(likemark => {
+      if (likemark[0] !== 1 ) {
+        throw new Error('There is no likemark associated to this id')
+      }
+
+      res.status(200).json({
+        success: true,
+        message: likemark
       })
+    })
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err
+    }))
   }
 
   public remove (req: Request, res: Response) {
     const id: number = req.params.id
-    Likemark.destroy({
-      where: {
-        id: id
-      }
+    LikemarkRow.destroy({
+      where: { id: id }
     })
-    .then(
-      (likemark) => {
-        if (likemark === 1 ) {
-          return res.status(200).json({
-            success: true,
-            message: likemark
-          })
-        } else {
-          return res.status(400).json({
-            success: false,
-            message: 'There is no likemark associated to this id.'
-          })
-        }
-      },
-      (_err) => {
-        return res.status(400).json({
-          success: false,
-          message: _err.message
-        })
+    .then(isDestroyed => {
+      if (isDestroyed !== 1 ) {
+        throw new Error('There is no likemark associated to this id')
+      }
+
+      res.status(200).json({
+        success: true
       })
+    })
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 
   public import (req: any, res: Response) {
@@ -205,43 +172,33 @@ export class LikemarkAPI {
       })
 
       fs.on('end', function () {
-        Netscape.import(html).then(
-          (result) => {
-            if (!result) {
-              throw new Error('There is no imported likemarks')
-            }
+        Netscape.import(html).then(result => {
+          if (!result) {
+            throw new Error('There is no imported likemarks')
+          }
 
-            return res.status(201).json({
-              success: true,
-              message: result
-            })
-          }
-        ).catch(
-          (err) => {
-            return res.status(400).json({
-              success: false,
-              message: err.message
-            })
-          }
-        )
+          res.status(201).json({
+            success: true,
+            message: result
+          })
+        })
+        .catch(err => res.status(400).json({
+          success: false,
+          message: err.message
+        }))
       })
     })
   }
 
   public export (req: Request, res: Response) {
-    Netscape.export().then(
-      (html) => {
-        return res.status(200)
-          .attachment('likemark.html')
-          .end(html)
-      }
-    ).catch(
-      (err) => {
-        return res.status(400).json({
-          success: false,
-          message: err.message
-        })
-      }
-    )
+    Netscape.export().then((html) => {
+      res.status(200)
+        .attachment('likemark.html')
+        .end(html)
+    })
+    .catch(err => res.status(400).json({
+      success: false,
+      message: err.message
+    }))
   }
 }

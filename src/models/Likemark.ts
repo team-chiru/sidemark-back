@@ -1,44 +1,18 @@
-// Module dependencies.
-import { connection } from '../config/database'
-import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from 'sequelize-typescript'
 import { list, object, alias, identifier, serializable } from 'serializr'
+import { LikemarkRow } from './LikemarkRow'
 
-// Entity Table Model.
-@Table({
-  tableName: 'Likemark',
-  timestamps: false,
-  paranoid: false
-})
-export class Likemark extends Model<Likemark> {
-  @PrimaryKey
-  @Column({
-    type: DataType.TEXT,
-    primaryKey: true,
-    autoIncrement: false
-  })
+export class Likemark {
   @serializable(identifier())
   id: String
 
-  @Column({
-    type: DataType.TEXT,
-    allowNull: false
-  })
   @serializable
-  parentId: String
+  parentId: String = '0' // default parentId is flat
 
-  @Column({
-    type: DataType.TEXT,
-    allowNull: true
-  })
   @serializable
-  title: string
+  title: String
 
-  @Column({
-    type: DataType.TEXT,
-    allowNull: true
-  })
   @serializable
-  url: string
+  url: String
 
   @serializable(list(object(Likemark)))
   children: Likemark[] = []
@@ -46,5 +20,16 @@ export class Likemark extends Model<Likemark> {
   @serializable
   get isFolder (): boolean {
     return this.children.length > 0
+  }
+
+  static fromRow (raw: LikemarkRow): Likemark {
+    let likemark = new Likemark()
+
+    likemark.id = raw.id
+    likemark.parentId = raw.parentId
+    likemark.title = raw.title
+    likemark.url = raw.url
+
+    return likemark
   }
 }
