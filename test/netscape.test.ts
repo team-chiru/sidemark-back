@@ -41,7 +41,14 @@ test('Test Export: Export a simple likemark object', () => {
   const netscape = new Netscape()
   const expected = fs.readFileSync('test/netscape.html', 'utf8')
 
-  return Likemark.bulkCreate<Likemark>(tests).then(
+  return Likemark.findAll<Likemark>().then(
+    // expect empty db
+    empty => expect(empty).toEqual([])
+  ).then(
+    // create initial set
+    () => Likemark.bulkCreate<Likemark>(tests)
+  ).then(
+    // export the initialized db
     () => Netscape.export()
   ).then(
     exported => expect(exported).toBe(expected)
@@ -53,6 +60,6 @@ test('Test Import: Import a simple likemark object', () => {
 
   // expect empty db
   return Likemark.findAll<Likemark>().then(
-    (likemarks) => { console.log(likemarks) }
+    empty => expect(empty).toEqual([])
   )
 })
