@@ -1,6 +1,14 @@
 import { connection } from './database'
 import { Likemark } from '../src/models/Likemark'
 
+// Likemark that we use for test
+const likemarkTest = {
+  id: '1',
+  parentId: '0',
+  title: 'test',
+  url: 'www.test.com'
+}
+
 // Test database connection and set server
 beforeAll(() => {
   return connection.authenticate().then(() => {
@@ -9,103 +17,91 @@ beforeAll(() => {
   .catch(err => {
     console.error('Unable to connect to the database:', err)
   })
-}, 3000)
-
-afterAll(() => {
-  connection.close()
 })
 
-// Likemark that we use for test.
-const likemarkTest = {
-  id: 31,
-  parentId: 3,
-  title: 'test',
-  url: 'www.test.com'
-}
+// Set a default likemark into the memory database
+beforeEach(() => {
+  return Likemark.create<Likemark>(likemarkTest)
+  .then((likemark) => {
+    console.log('Likemark test created before each test.')
+  })
+}, 1000)
 
-// Create a likemark into table Likemark.
-test('Test Likemark: Post to create likemark.', done => {
-  let isCreated: boolean = false
-  Likemark.create<Likemark>(likemarkTest)
-    .then(
-      (likemark) => {
-        isCreated = true
-        expect(isCreated).toBe(true)
-        done()
-      },
-      (_err) => {
-        fail()
-      })
-}, 3000)
+afterEach(() => {
+  return Likemark.destroy({
+    where: {}
+  }).then(() => {
+    console.log('Connection has been successfully cleared.')
+  })
+}, 1000)
 
-// Get a likemark from Likemark table.
-test('Test Likemark: Get a likemark.', done => {
-  let isGet: boolean = false
-  Likemark.findOne<Likemark>({
+afterAll(() => {
+  return connection.close()
+})
+
+// Create a likemark into table Likemark
+test('Test Likemark: Post to create likemark.', () => {
+  const likemarkExpected = {
+    id: '2',
+    parentId: '0',
+    title: 'test',
+    url: 'www.test.com'
+  }
+
+  return Likemark.create<Likemark>(likemarkExpected).then(
+      created => expect(created.get({plain: true})).toMatchObject(likemarkExpected)
+  )
+})
+
+// Get a likemark from Likemark table
+test('Test Likemark: Get a likemark.', () => {
+  return Likemark.findOne<Likemark>({
     where: {
       id: likemarkTest.id
     }
+  }).then(likemark => {
+    expect(likemark.get({plain: true})).toMatchObject(likemarkTest)
   })
-  .then(
-    (likemark) => {
-      if (likemark) {
-        isGet = true
-      }
-      expect(isGet).toBe(true)
-      done()
-    },
-    (_err) => {
-      fail()
-    })
-}, 3000)
+})
 
 // Update an existing likemark from the Likemark table.
-test('Test Likemark: Update a likemark.', done => {
-  let isUpdated: boolean = false
-  const newLikeMark = {
-    parentId: 3,
-    name: 'test-updated',
+test('Test Likemark: Update a likemark.', () => {
+  const likemarkExpected = {
+    id: '1',
+    parentId: '0',
+    title: 'test-updated',
     url: 'www.test-updated.com'
   }
-  Likemark.update<Likemark>(newLikeMark, {
+  return Likemark.update<Likemark>(likemarkExpected, {
     where: {
       id: likemarkTest.id
     }
   })
-  .then(
-    (likemark) => {
-      if (likemark[0] === 1 ) {
-        isUpdated = true
-      } else {
-        fail()
+  .then((likemark) => {
+    return Likemark.findOne<Likemark>({
+      where: {
+        id: likemarkTest.id
       }
-      expect(isUpdated).toBe(true)
-      done()
-    },
-    (_err) => {
-      fail()
+    }).then(likemark => {
+      expect(likemark.get({plain: true})).toMatchObject(likemarkExpected)
     })
-}, 3000)
+  })
+})
 
-// Delete a likemark from the Likemark table.
-test('Test Likemark: Delete a likemark.', done => {
-  let isDeleted: boolean = false
-  Likemark.destroy({
+// Delete a likemark from the Likemark table
+test('Test Likemark: Delete a likemark.', () => {
+  return Likemark.destroy({
     where: {
       id: likemarkTest.id
     }
   })
-  .then(
-    (likemark) => {
-      if (likemark === 1 ) {
-        isDeleted = true
-      } else {
-        fail()
+  .then((likemark) => {
+    return Likemark.findOne<Likemark>({
+      where: {
+        id: likemarkTest.id
       }
-      expect(isDeleted).toBe(true)
-      done()
-    },
-    (_err) => {
-      fail()
+    }).then(likemark => {
+      expect(likemark).toBe(null)
     })
-}, 3000)
+  })
+})
