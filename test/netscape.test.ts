@@ -57,9 +57,24 @@ test('Test Export: Export a simple likemark object', () => {
 
 test('Test Import: Import a simple likemark object', () => {
   const toImport = fs.readFileSync('test/netscape.html', 'utf8')
+  const expected = tests
 
   // expect empty db
   return Likemark.findAll<Likemark>().then(
     empty => expect(empty).toEqual([])
-  )
+  ).then(
+     // import the initalized db
+     () => Netscape.import(toImport)
+  ).then(() => {
+      // fetch all imported likemark
+    return Likemark.findAll<Likemark>({raw: true}).then(
+      likemarks => likemarks.forEach((likemark, index) => {
+        if (index === 0) {
+          expect(likemark.title).toBe('Menu')
+        } else {
+          expect(likemark.title).toBe(expected[index - 1].title)
+        }
+      })
+    )
+  })
 })
