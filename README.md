@@ -1,4 +1,5 @@
 # sidemark-back
+likemark backend prototype.
 ## Contribute
 ### Installing and Script
 
@@ -14,16 +15,15 @@ npm install
 npm run lint
 ```
 
-### Development
+## Development
 The start script start server on port 42506 that can be change in the file /.env root project directory.
 
 ```
 npm start
 ```
 
-### Unit tests
-
-To run the test, a database.db file must be initialized by the script: `LikemarkTable.sql`
+## Initialise Likemark database
+If you want to create the database, a `database.db` file must be initialized and a table must be created by the script: `LikemarkTable.sql`
 
 The database must be create in the `/src` folder. So, run those commands to create the database:
 
@@ -31,8 +31,11 @@ The database must be create in the `/src` folder. So, run those commands to crea
 cd src
 sqlite3 database.db < sql/LikemarkTable.sql
 ```
-and run this command to start unit test:
 
+## Unit tests
+The unit test are run with Jest. More details in `package.json` file.
+
+run this command to start unit test:
 ```
 npm run test
 ```
