@@ -11,6 +11,8 @@ npm install --save https://github.com/mapbox/node-sqlite3/tarball/master
 npm install
 ```
 
+Run the linter.
+
 ```
 npm run lint
 ```
