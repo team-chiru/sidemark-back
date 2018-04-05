@@ -4,14 +4,11 @@
 import { LikemarkRow } from '../models/LikemarkRow'
 import { Likemark } from '../models/Likemark'
 import { Root } from '../models/Root'
-import { Netscape } from '../logic/Netscape'
 import { Request, Response } from 'express'
 import * as fs from 'memfs'
 
-export class LikemarkAPI {
-  public likemarkModel
-
-  public get (req: Request, res: Response) {
+export class Dao {
+  public static get (req: Request, res: Response) {
     const id: number = req.params.id
 
     LikemarkRow.findOne<LikemarkRow>({
@@ -33,7 +30,7 @@ export class LikemarkAPI {
     }))
   }
 
-  public getFirstChildren (req: Request, res: Response) {
+  public static getFirstChildren (req: Request, res: Response) {
     const id: number = req.params.id
 
     LikemarkRow.findAll<LikemarkRow>({
@@ -51,7 +48,7 @@ export class LikemarkAPI {
     }))
   }
 
-  public getWithFirstChildren (req: Request, res: Response) {
+  public static getWithFirstChildren (req: Request, res: Response) {
     const id: number = req.params.id
     let likemarkWithChild: Likemark
 
@@ -85,7 +82,7 @@ export class LikemarkAPI {
     }))
   }
 
-  public list (req: Request, res: Response) {
+  public static list (req: Request, res: Response) {
     LikemarkRow.findAll<LikemarkRow>()
     .then(likemarks => res.status(200).json({
       success: true,
@@ -99,7 +96,7 @@ export class LikemarkAPI {
     }))
   }
 
-  public post (req: Request, res: Response) {
+  public static post (req: Request, res: Response) {
     const likemark: any = req.body
 
     LikemarkRow.create<LikemarkRow>(likemark)
@@ -118,7 +115,7 @@ export class LikemarkAPI {
     }))
   }
 
-  public update (req: Request, res: Response) {
+  public static update (req: Request, res: Response) {
     const id: number = req.params.id
     const likemark: Object = req.body
 
@@ -141,7 +138,7 @@ export class LikemarkAPI {
     }))
   }
 
-  public remove (req: Request, res: Response) {
+  public static remove (req: Request, res: Response) {
     const id: number = req.params.id
     LikemarkRow.destroy({
       where: { id: id }
@@ -154,47 +151,6 @@ export class LikemarkAPI {
       res.status(200).json({
         success: true
       })
-    })
-    .catch(err => res.status(400).json({
-      success: false,
-      message: err.message
-    }))
-  }
-
-  public import (req: any, res: Response) {
-    req.pipe(req.busboy)
-
-    req.busboy.on('file', function (fieldname, fs, filename) {
-      let html = ''
-
-      fs.on('data', function (data) {
-        html += data
-      })
-
-      fs.on('end', function () {
-        Netscape.import(html).then(result => {
-          if (!result) {
-            throw new Error('There is no imported likemarks')
-          }
-
-          res.status(201).json({
-            success: true,
-            message: result
-          })
-        })
-        .catch(err => res.status(400).json({
-          success: false,
-          message: err.message
-        }))
-      })
-    })
-  }
-
-  public export (req: Request, res: Response) {
-    Netscape.export().then((html) => {
-      res.status(200)
-        .attachment('likemark.html')
-        .end(html)
     })
     .catch(err => res.status(400).json({
       success: false,

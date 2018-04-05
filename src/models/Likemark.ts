@@ -32,4 +32,16 @@ export class Likemark {
 
     return likemark
   }
+
+  static clone (likemark: Likemark): Likemark {
+    let clone = new Likemark()
+
+    clone.id = likemark.id
+    clone.parentId = likemark.parentId
+    clone.title = likemark.title
+    clone.url = likemark.url
+    clone.children = likemark.children
+
+    return clone
+  }
 }

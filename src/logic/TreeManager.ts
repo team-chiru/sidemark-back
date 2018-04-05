@@ -2,13 +2,12 @@ import { Likemark } from '../models/Likemark'
 import { LikemarkRow } from '../models/LikemarkRow'
 import * as PromiseLike from 'bluebird'
 import { Root } from '../models/Root'
-import * as uuidv4 from 'uuid/v4'
 import { serialize } from 'serializr'
 
-export class LikemarkTree {
+export class TreeManager {
   static get (): PromiseLike<Root> {
     return LikemarkRow.findAll<LikemarkRow>().then(
-      all => LikemarkTree.sort(
+      all => this.sort(
         all.map(
           likemark => Likemark.fromRow(likemark.get())
         )
@@ -16,7 +15,23 @@ export class LikemarkTree {
     )
   }
 
-  static sort (all: Likemark[]) {
+  static merge (root: Root): PromiseLike<Likemark[]> {
+    let buffer: Likemark[] = []
+
+    const collect = like => {
+      buffer.push(like)
+
+      like.children.forEach(collect)
+    }
+
+    root.bookmarks.forEach(collect)
+
+    return LikemarkRow.bulkCreate<LikemarkRow>(buffer).then(
+      rows => rows.map(row => Likemark.fromRow(row))
+    )
+  }
+
+  private static sort (all: Likemark[]) {
     let root = new Root()
 
     all.forEach((node) => {
@@ -34,32 +49,5 @@ export class LikemarkTree {
     })
 
     return root
-  }
-
-  static create (root: Root): PromiseLike<Likemark[]> {
-    let buffer: Likemark[] = []
-
-    const buildLikemark = (like: Likemark) => {
-      like.id = uuidv4()
-
-      like.children.forEach(
-        (child) => {
-          child.parentId = like.id
-        }
-      )
-
-      buffer.push(like)
-
-      like.children.forEach(buildLikemark)
-    }
-
-    root.bookmarks.forEach(
-      (bookmark: Likemark) => {
-        buildLikemark(bookmark)
-      })
-
-    return LikemarkRow.bulkCreate<LikemarkRow>(buffer).then(
-      rows => rows.map(row => Likemark.fromRow(row))
-    )
   }
 }

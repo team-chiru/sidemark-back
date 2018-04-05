@@ -2,7 +2,7 @@
  * Module dependencies.
  */
 import { Server } from './server'
-import { Likemark } from './models/Likemark'
+import { LikemarkRow } from './models/LikemarkRow'
 import { connection as connection } from './config/database'
 
 /**
@@ -13,7 +13,7 @@ const server: Server = new Server(port)
 
 connection.authenticate().then(() => {
   // Add model to Sequelize instance.
-  connection.addModels([Likemark])
+  connection.addModels([LikemarkRow])
   console.log('Likemark model is ready!')
 
   server.start()

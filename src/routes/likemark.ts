@@ -2,20 +2,22 @@
  * Use Router object from express
  */
 import * as express from 'express'
-import { LikemarkAPI } from '../dao/LikemarkAPI'
-export const router = express.Router()
 
-const api = new LikemarkAPI()
+import { Dao } from '../api/Dao'
+import { Netscape } from '../api/Netscape'
+
+export const router = express.Router()
 
 /**
  * Define EndPoint routes
  */
-router.get('/likemark/get/:id', api.get.bind(api))
-router.get('/likemark/getFirstChildren/:id', api.getFirstChildren.bind(api))
-router.get('/likemark/getWithFirstChildren/:id', api.getWithFirstChildren.bind(api))
-router.get('/likemark/list', api.list.bind(api))
-router.get('/likemark/export', api.export.bind(api))
-router.post('/likemark/post', api.post.bind(api))
-router.post('/likemark/import', api.import.bind(api))
-router.patch('/likemark/update/:id', api.update.bind(api))
-router.delete('/likemark/delete/:id', api.remove.bind(api))
+router.get('/likemark/get/:id', Dao.get)
+router.get('/likemark/getFirstChildren/:id', Dao.getFirstChildren)
+router.get('/likemark/getWithFirstChildren/:id', Dao.getWithFirstChildren)
+router.get('/likemark/list', Dao.list)
+router.post('/likemark/post', Dao.post)
+router.patch('/likemark/update/:id', Dao.update)
+router.delete('/likemark/delete/:id', Dao.remove)
+
+router.get('/likemark/export', Netscape.export)
+router.post('/likemark/import', Netscape.import)
