@@ -1,4 +1,5 @@
 # sidemark-back
+likemark backend prototype.
 ## Contribute
 ### Installing and Script
 
@@ -10,29 +11,32 @@ npm install --save https://github.com/mapbox/node-sqlite3/tarball/master
 npm install
 ```
 
+Run the linter.
+
 ```
 npm run lint
 ```
 
-### Development
+## Development
 The start script start server on port 42506 that can be change in the file /.env root project directory.
 
 ```
 npm start
 ```
 
-### Unit tests
+## Initialise Likemark database
+If you want to create the database, a `database.db` file must be initialized and a table must be created by the script: `LikemarkTable.sql`
 
-To run the test, a database.db file must be initialized by the script: `simple_entity.sql`
-
-The database must be create in the `/src/app` folder. So, run those commands to create the database:
+The database must be create in the `/src` folder. So, run those commands to create the database:
 
 ```
-cd src/app
-sqlite3 database.db < sql/simple_entity.sql
+cd src; sqlite3 database.db < sql/LikemarkTable.sql
 ```
-and run this command to start unit test:
 
+## Unit tests
+The unit test are run with Jest. More details in `package.json` file.
+
+run this command to start unit test:
 ```
 npm run test
 ```

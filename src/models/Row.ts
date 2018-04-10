@@ -1,43 +1,38 @@
 // Module dependencies.
 import { connection } from '../config/database'
+import { Likemark } from './Likemark'
 import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from 'sequelize-typescript'
 
 // Entity Table Model.
-@Table(
-  {
-    tableName: 'Likemark',
-    timestamps: false,
-    paranoid: false
-  }
-)
-export class Likemark extends Model<Likemark> {
+@Table({
+  tableName: 'Likemark',
+  timestamps: false,
+  paranoid: false
+})
+export class Row extends Model<Row> {
   @PrimaryKey
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.TEXT,
     primaryKey: true,
     autoIncrement: false
   })
-  id: number
+  id: String
 
   @Column({
-    type: DataType.INTEGER,
+    type: DataType.TEXT,
     allowNull: false
   })
-  parentId: number
+  parentId: String
 
   @Column({
     type: DataType.TEXT,
     allowNull: true
   })
-  name: string
+  title: String
 
   @Column({
     type: DataType.TEXT,
     allowNull: true
   })
-  url: string
+  url: String
 }
-
-// Add model to Sequelize instance.
-connection.addModels([Likemark])
-console.log('Likemark model is ready!')
