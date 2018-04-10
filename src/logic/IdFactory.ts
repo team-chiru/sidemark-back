@@ -7,7 +7,7 @@ export class IdFactory {
   private idMethod: IdMethod
   private parentIdHash: Map<String, number>
 
-  constructor (method) {
+  constructor (method?: IdMethod) {
     this.idMethod = method ? method : IdMethod.UUID
     this.parentIdHash = new Map()
   }

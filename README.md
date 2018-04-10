@@ -30,8 +30,7 @@ If you want to create the database, a `database.db` file must be initialized and
 The database must be create in the `/src` folder. So, run those commands to create the database:
 
 ```
-cd src
-sqlite3 database.db < sql/LikemarkTable.sql
+cd src; sqlite3 database.db < sql/LikemarkTable.sql
 ```
 
 ## Unit tests
