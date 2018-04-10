@@ -1,7 +1,7 @@
 /**
  * Module dependencies.
  */
-import { LikemarkRow } from '../models/LikemarkRow'
+import { Row } from '../models/Row'
 import { Likemark } from '../models/Likemark'
 import { Root } from '../models/Root'
 import { Request, Response } from 'express'
@@ -11,7 +11,7 @@ export class Dao {
   public static get (req: Request, res: Response) {
     const id: number = req.params.id
 
-    LikemarkRow.findOne<LikemarkRow>({
+    Row.findOne<Row>({
       where: { id: id }
     })
     .then(likemark => {
@@ -33,7 +33,7 @@ export class Dao {
   public static getFirstChildren (req: Request, res: Response) {
     const id: number = req.params.id
 
-    LikemarkRow.findAll<LikemarkRow>({
+    Row.findAll<Row>({
       where: { parentId: id }
     })
     .then(children => res.status(200).json({
@@ -52,7 +52,7 @@ export class Dao {
     const id: number = req.params.id
     let likemarkWithChild: Likemark
 
-    LikemarkRow.findOne<LikemarkRow>({
+    Row.findOne<Row>({
       where: { id: id }
     })
     .then(likemark => {
@@ -62,7 +62,7 @@ export class Dao {
 
       likemarkWithChild = Likemark.fromRow(likemark)
 
-      return LikemarkRow.findAll<LikemarkRow>({
+      return Row.findAll<Row>({
         where: { parentId: id }
       })
     })
@@ -83,7 +83,7 @@ export class Dao {
   }
 
   public static list (req: Request, res: Response) {
-    LikemarkRow.findAll<LikemarkRow>()
+    Row.findAll<Row>()
     .then(likemarks => res.status(200).json({
       success: true,
       message: likemarks.map(
@@ -99,7 +99,7 @@ export class Dao {
   public static post (req: Request, res: Response) {
     const likemark: any = req.body
 
-    LikemarkRow.create<LikemarkRow>(likemark)
+    Row.create<Row>(likemark)
     .then(likemark => {
       if (!likemark) {
         throw new Error('Post returns an empty likemark')
@@ -119,7 +119,7 @@ export class Dao {
     const id: number = req.params.id
     const likemark: Object = req.body
 
-    LikemarkRow.update<LikemarkRow>(likemark, {
+    Row.update<Row>(likemark, {
       where: { id: id }
     })
     .then(likemark => {
@@ -140,7 +140,7 @@ export class Dao {
 
   public static remove (req: Request, res: Response) {
     const id: number = req.params.id
-    LikemarkRow.destroy({
+    Row.destroy({
       where: { id: id }
     })
     .then(isDestroyed => {

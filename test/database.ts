@@ -3,7 +3,7 @@
  */
 import { Sequelize } from 'sequelize-typescript'
 import * as dotenv from 'dotenv'
-import { LikemarkRow } from '../src/models/LikemarkRow'
+import { Row } from '../src/models/Row'
 
 // Load environment variables
 dotenv.config()
@@ -44,4 +44,4 @@ connection.getQueryInterface().createTable('Likemark',
     }
   })
 
-connection.addModels([LikemarkRow])
+connection.addModels([Row])

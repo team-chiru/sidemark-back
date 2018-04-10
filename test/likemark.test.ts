@@ -1,5 +1,5 @@
 import { connection } from './database'
-import { LikemarkRow } from '../src/models/LikemarkRow'
+import { Row } from '../src/models/Row'
 
 // Likemark that we use for test
 const likemarkTest = {
@@ -21,14 +21,14 @@ beforeAll(() => {
 
 // Set a default likemark into the memory database
 beforeEach(() => {
-  return LikemarkRow.create<LikemarkRow>(likemarkTest)
+  return Row.create<Row>(likemarkTest)
   .then((likemark) => {
     console.log('Likemark test created before each test.')
   })
 }, 1000)
 
 afterEach(() => {
-  return LikemarkRow.destroy({
+  return Row.destroy({
     where: {}
   }).then(() => {
     console.log('Connection has been successfully cleared.')
@@ -48,14 +48,14 @@ test('Test Likemark: Post to create likemark.', () => {
     url: 'www.test.com'
   }
 
-  return LikemarkRow.create<LikemarkRow>(likemarkExpected).then(
+  return Row.create<Row>(likemarkExpected).then(
       created => expect(created.get({plain: true})).toMatchObject(likemarkExpected)
   )
 })
 
 // Get a likemark from Likemark table
 test('Test Likemark: Get a likemark.', () => {
-  return LikemarkRow.findOne<LikemarkRow>({
+  return Row.findOne<Row>({
     where: {
       id: likemarkTest.id
     }
@@ -72,13 +72,13 @@ test('Test Likemark: Update a likemark.', () => {
     title: 'test-updated',
     url: 'www.test-updated.com'
   }
-  return LikemarkRow.update<LikemarkRow>(likemarkExpected, {
+  return Row.update<Row>(likemarkExpected, {
     where: {
       id: likemarkTest.id
     }
   })
   .then((likemark) => {
-    return LikemarkRow.findOne<LikemarkRow>({
+    return Row.findOne<Row>({
       where: {
         id: likemarkTest.id
       }
@@ -90,13 +90,13 @@ test('Test Likemark: Update a likemark.', () => {
 
 // Delete a likemark from the Likemark table
 test('Test Likemark: Delete a likemark.', () => {
-  return LikemarkRow.destroy({
+  return Row.destroy({
     where: {
       id: likemarkTest.id
     }
   })
   .then((likemark) => {
-    return LikemarkRow.findOne<LikemarkRow>({
+    return Row.findOne<Row>({
       where: {
         id: likemarkTest.id
       }

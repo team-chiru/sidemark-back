@@ -1,19 +1,19 @@
 /**
  * Module dependencies.
  */
-import { Server } from './server'
-import { LikemarkRow } from './models/LikemarkRow'
+import { Server } from './Server'
+import { Row } from './models/Row'
 import { connection as connection } from './config/database'
 
 /**
  * Get port from environment and store in Express.
  */
-const port: any = process.env.PORT
-const server: Server = new Server(port)
+const port: number = parseInt(process.env.PORT || '8080', undefined)
+const server: Server = new Server(port, '/')
 
 connection.authenticate().then(() => {
   // Add model to Sequelize instance.
-  connection.addModels([LikemarkRow])
+  connection.addModels([Row])
   console.log('Likemark model is ready!')
 
   server.start()

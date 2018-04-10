@@ -9,7 +9,7 @@ import { Table, Column, Model, DataType, PrimaryKey, ForeignKey, HasOne } from '
   timestamps: false,
   paranoid: false
 })
-export class LikemarkRow extends Model<LikemarkRow> {
+export class Row extends Model<Row> {
   @PrimaryKey
   @Column({
     type: DataType.TEXT,

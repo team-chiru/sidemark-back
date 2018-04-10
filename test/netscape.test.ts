@@ -7,7 +7,7 @@ import { connection } from './database'
 import { NetscapeAdapter } from '../src/logic/NetscapeAdapter'
 import { IdMethod, IdFactory } from '../src/logic/IdFactory'
 import { Likemark } from '../src/models/Likemark'
-import { LikemarkRow } from '../src/models/LikemarkRow'
+import { Row } from '../src/models/Row'
 import { TreeManager } from '../src/logic/TreeManager'
 import { Root } from '../src/models/Root'
 
@@ -80,7 +80,7 @@ beforeEach(() => {
 })
 
 afterEach(() => {
-  return LikemarkRow.destroy({
+  return Row.destroy({
     where: {}
   }).then(() => {
     console.log('Connection has been successfully cleared.')
@@ -88,7 +88,7 @@ afterEach(() => {
 })
 
 test('Test Tree Fetching', () => {
-  return LikemarkRow.findAll<LikemarkRow>().then(
+  return Row.findAll<Row>().then(
     empty => expect(empty).toEqual([]) // expect empty db
   ).then(
     () => TreeManager.merge(sample) // create initial set
@@ -102,7 +102,7 @@ test('Test Tree Fetching', () => {
 test('Test Export: Export a simple likemark object', () => {
   const expected = fs.readFileSync('test/netscape.html', 'utf8')
 
-  return LikemarkRow.findAll<LikemarkRow>().then(
+  return Row.findAll<Row>().then(
     empty => expect(empty).toEqual([]) // expect empty db
   ).then(
     () => TreeManager.merge(sample) // create initial set
@@ -117,7 +117,7 @@ test('Test Import: Import a simple likemark object', () => {
   const toImport = fs.readFileSync('test/netscape.html', 'utf8')
   const idFactory = new IdFactory(IdMethod.PARENT_ID)
 
-  return LikemarkRow.findAll<LikemarkRow>().then(
+  return Row.findAll<Row>().then(
     empty => expect(empty).toEqual([]) // expect empty db
   ).then(
      () => NetscapeAdapter.import(toImport, idFactory) // import the initalized db

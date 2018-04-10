@@ -1,12 +1,12 @@
 import { Likemark } from '../models/Likemark'
-import { LikemarkRow } from '../models/LikemarkRow'
+import { Row } from '../models/Row'
 import * as PromiseLike from 'bluebird'
 import { Root } from '../models/Root'
 import { serialize } from 'serializr'
 
 export class TreeManager {
   static get (): PromiseLike<Root> {
-    return LikemarkRow.findAll<LikemarkRow>().then(
+    return Row.findAll<Row>().then(
       all => this.sort(
         all.map(
           likemark => Likemark.fromRow(likemark.get())
@@ -26,7 +26,7 @@ export class TreeManager {
 
     root.bookmarks.forEach(collect)
 
-    return LikemarkRow.bulkCreate<LikemarkRow>(buffer).then(
+    return Row.bulkCreate<Row>(buffer).then(
       rows => rows.map(row => Likemark.fromRow(row))
     )
   }

@@ -1,5 +1,5 @@
 import { list, object, alias, identifier, serializable } from 'serializr'
-import { LikemarkRow } from './LikemarkRow'
+import { Row } from './Row'
 
 export class Likemark {
   @serializable(identifier())
@@ -22,13 +22,13 @@ export class Likemark {
     return this.children.length > 0
   }
 
-  static fromRow (raw: LikemarkRow): Likemark {
+  static fromRow (row: Row): Likemark {
     let likemark = new Likemark()
 
-    likemark.id = raw.id
-    likemark.parentId = raw.parentId
-    likemark.title = raw.title
-    likemark.url = raw.url
+    likemark.id = row.id
+    likemark.parentId = row.parentId
+    likemark.title = row.title
+    likemark.url = row.url
 
     return likemark
   }
