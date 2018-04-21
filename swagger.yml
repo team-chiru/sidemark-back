@@ -144,6 +144,13 @@ paths:
   /likemark/import:
     post:
       summary: Send a netscape file to save on likemark server.
+      consumes:
+         - multipart/form-data
+      parameters:
+         - in: formData
+           name: netscape file.
+           type: file
+           description: The netscape bookmark file to upload.
       responses:
           200:
             description: OK.
@@ -156,12 +163,12 @@ paths:
     get:
      summary: Download a netscape file from likemark server.
      responses:
-          200:
-            description: OK.
-          400:
-              description: Bad Request.
-          404:
-              description: Likemark could not be exported.
+        200:
+           description: OK
+        400:
+            description: Bad Request.
+        404:
+            description: Likemark could not be exported.
 
 definitions:
   LikemarkResponse:
