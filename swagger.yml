@@ -1,0 +1,69 @@
+swagger: "2.0"
+info:
+  description: "This is a likemark"
+  version: "1.0.0"
+  title: "Likemark.io"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "team-chiru@protomail.com"
+  license:
+    name: "MIT"
+    url: "https://en.wikipedia.org/wiki/MIT_License"
+host: "likemark.io"
+basePath: "/likemark"
+schemes:
+- "http"
+paths:
+  /likemark/{id}:
+    get:
+      summary: Get a likemark by his id.
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Unique id of the likemark.
+      responses:
+        200:
+          description: The height of the last block.
+          schema:
+            $ref: '#/definitions/LikemarkResponse'
+        400:
+            description: Bad Request.
+        404:
+            description: There is not blocks.
+
+definitions:
+  LikemarkResponse:
+    type: object
+    required:
+      - id  "0"
+      - parentId  "-1"
+      - title  "Folder1"
+      - url  "http://likemark.io"
+      - children
+    properties:
+      id:
+        type: string
+      parentId:
+        type: string
+      title:
+        type: string
+      url:
+        type: integer
+      children:
+        type: string
+    example:
+      id:
+      parentId:
+      title: Likemark title
+      url: 56
+      children:
+        - "0": {
+          parentId:  "1",
+          children: [],
+          id:  "11",
+          title:  "Folder11",
+          url : "http://likemark.io"
+        }
+

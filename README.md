@@ -81,5 +81,15 @@ Delete a likemark by id.
 /likemark/delete/:id
 ```
 
+### IMPORT
+Import likemark from netscape file to database.
+```
+/likemark/import
+```
 
+### EXPORT
+Export likemark from database to netscape file.
+```
+/likemark/export
+```
 
