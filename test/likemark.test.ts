@@ -4,7 +4,7 @@ import { Row } from '../src/models/Row'
 // Likemark that we use for test
 const likemarkTest = {
   id: '1',
-  parentId: '0',
+  parentId: '1',
   title: 'test',
   url: 'www.test.com'
 }
@@ -43,7 +43,7 @@ afterAll(() => {
 test('Test Likemark: Post to create likemark.', () => {
   const likemarkExpected = {
     id: '2',
-    parentId: '0',
+    parentId: '1',
     title: 'test',
     url: 'www.test.com'
   }
@@ -68,7 +68,7 @@ test('Test Likemark: Get a likemark.', () => {
 test('Test Likemark: Update a likemark.', () => {
   const likemarkExpected = {
     id: '1',
-    parentId: '0',
+    parentId: '1',
     title: 'test-updated',
     url: 'www.test-updated.com'
   }

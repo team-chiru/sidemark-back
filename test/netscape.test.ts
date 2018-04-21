@@ -14,13 +14,13 @@ import { Root } from '../src/models/Root'
 const sample = deserialize(Root, {
   name: 'Likemarks',
   bookmarks: [{
-    id: '0',
-    parentId: '-1',
+    id: 'root',
+    parentId: 'root',
     title: 'Folder0',
     url: null,
     children: [{
       id: '1',
-      parentId: '0',
+      parentId: 'root',
       title: 'Folder1',
       url: null,
       children: [{
@@ -36,7 +36,7 @@ const sample = deserialize(Root, {
       }]
     }, {
       id: '2',
-      parentId: '0',
+      parentId: 'root',
       title: 'Folder2',
       url: null,
       children: [{
@@ -63,7 +63,7 @@ const sample = deserialize(Root, {
       }]
     }, {
       id: '3',
-      parentId: '0',
+      parentId: 'root',
       title: 'Link3',
       url: 'http://likemark.io'
     }]
