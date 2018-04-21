@@ -64,7 +64,9 @@ export class NetscapeAdapter {
 
     root.bookmarks.forEach(
       bookmark => {
-        bookmark.parentId = '-1'
+        bookmark.parentId = 'root'
+        bookmark.id = 'root'
+
         update(bookmark)
       }
     )
