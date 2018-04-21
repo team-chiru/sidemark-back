@@ -13,7 +13,7 @@ info:
 
 host: "likemark.io"
 
-basePath: "/"
+basePath: "/api/"
 
 schemes:
 - "http"
