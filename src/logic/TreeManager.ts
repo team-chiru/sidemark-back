@@ -35,7 +35,7 @@ export class TreeManager {
     let root = new Root()
 
     all.forEach((node) => {
-      if (node.parentId === '-1') {
+      if (node.parentId === node.id) {
         root.bookmarks.push(node)
       } else {
         let parent = all.find(el => el.id === node.parentId)

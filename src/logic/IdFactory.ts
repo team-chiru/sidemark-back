@@ -15,6 +15,10 @@ export class IdFactory {
   create (like: Likemark): String {
     let newId = ''
 
+    if (like.id === like.parentId) {
+      return like.id // never create the root again
+    }
+
     switch (this.idMethod) {
       case IdMethod.PARENT_ID:
         let index = this.parentIdHash.get(like.parentId)
@@ -27,9 +31,7 @@ export class IdFactory {
 
         this.parentIdHash.set(like.parentId, index)
 
-        if (like.parentId === '-1') {
-          newId = '0'
-        } else if (like.parentId === '0') {
+        if (like.parentId === 'root') {
           newId = index.toString()
         } else {
           newId = like.parentId + index.toString()

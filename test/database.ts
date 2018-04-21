@@ -27,21 +27,24 @@ export const connection = new Sequelize({
 })
 
 // Create Likemark table in memory.
-connection.getQueryInterface().createTable('Likemark',
-  {
-    id: {
-      type: Sequelize.TEXT,
-      primaryKey: true
-    },
-    parentId: {
-      type: Sequelize.TEXT
-    },
-    title: {
-      type: Sequelize.TEXT
-    },
-    url: {
-      type: Sequelize.TEXT
+connection.getQueryInterface().createTable('Likemark', {
+  id: {
+    type: Sequelize.TEXT,
+    primaryKey: true
+  },
+  parentId: {
+    type: Sequelize.TEXT,
+    references: {
+      model: 'Likemark',
+      key: 'id'
     }
-  })
+  },
+  title: {
+    type: Sequelize.TEXT
+  },
+  url: {
+    type: Sequelize.TEXT
+  }
+})
 
 connection.addModels([Row])
