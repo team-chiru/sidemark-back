@@ -191,16 +191,15 @@ definitions:
       children:
         type: string
     example:
-      id:
-      parentId:
+      id: "e0ddda7d-d78b-43f4-a509-f5bade83596"
+      parentId: "7a8a3623-c461-4b58-a32d-0905096ed359"
       title: Likemark title
-      url: 56
+      url: "http://likemark.io"
       children:
         - "0": {
-          parentId:  "1",
+          parentId:  "e0ddda7d-d78b-43f4-a509-f5bade83596",
           children: [],
           id:  "11",
           title:  "Folder11",
           url : "http://likemark.io"
         }
-
