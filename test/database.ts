@@ -37,7 +37,9 @@ connection.getQueryInterface().createTable('Likemark', {
     references: {
       model: 'Likemark',
       key: 'id'
-    }
+    },
+    onUpdate: 'cascade',
+    onDelete: 'cascade'
   },
   title: {
     type: Sequelize.TEXT
