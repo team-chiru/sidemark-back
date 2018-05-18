@@ -20,10 +20,10 @@ INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('2
 INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('22', 'test_node', "none", "folder","music", 1);
 INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('221', 'test_node',"none", "folder","music",1);
 
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('1',"link name" ,'www.test.com', "link","music",1);
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('11', "link name",'www.test.com',"link","music",1);
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('12',"link name",'www.test.com',"link","music",1);
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('2', "link name",'www.test.com', "link","music",1);
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('21',"link name",'www.test.com', "link","music",1);
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('211',"link name",'www.test.com', "link","music",1);
-INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('22',"link name",'www.test.com', "link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('1',"link name" ,'http://www.test.com', "link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('11', "link name",'http://www.test.com',"link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('12',"link name",'http://www.test.com',"link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('2', "link name",'http://www.test.com', "link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('21',"link name",'http://www.test.com', "link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('211',"link name",'http://www.test.com', "link","music",1);
+INSERT INTO entity (tree_id, name, url, struct_type, fn_type, rev_no) VALUES ('22',"link name",'http://www.test.com', "link","music",1);
