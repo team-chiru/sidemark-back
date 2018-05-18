@@ -1,11 +1,11 @@
 # Compiled binary addons (https://nodejs.org/api/addons.html)
 build/Release
 
-#Visual Studio configuration
-.vscode
-
 # Dependency directories
 node_modules/
+
+# Log files
+*.log
 
 # Optional npm cache directory
 .npm
@@ -24,3 +24,6 @@ node_modules/
 
 # sqlite3 db
 *.db
+
+dist
+results/
