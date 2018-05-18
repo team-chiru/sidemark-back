@@ -4,6 +4,9 @@ build/Release
 # Dependency directories
 node_modules/
 
+# Log files
+*.log
+
 # Optional npm cache directory
 .npm
 
@@ -23,3 +26,4 @@ node_modules/
 *.db
 
 dist
+results/
