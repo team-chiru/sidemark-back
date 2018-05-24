@@ -87,6 +87,12 @@ Import likemark from netscape file to database.
 /likemark/import
 ```
 
+Example:
+```
+curl -F file=@netscape.html http://localhost:42506/likemark/import
+```
+
+
 ### EXPORT
 Export likemark from database to netscape file.
 ```
