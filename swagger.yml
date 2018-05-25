@@ -1,0 +1,234 @@
+swagger: "2.0"
+
+info:
+  description: "Decentralized bookmark manager."
+  version: "0.1.0"
+  title: "Likemark.io"
+  termsOfService: "likemark.io"
+  contact:
+    email: "team-chiru@protomail.com"
+  license:
+    name: "MIT"
+    url: "https://en.wikipedia.org/wiki/MIT_License"
+    
+host: "likemark.io"
+
+basePath: "/api/"
+
+schemes:
+- "http"
+- "https"
+
+paths:
+  /likemark/{id}:
+    get:
+      summary: Get a likemark by his id.
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Unique id of the likemark.
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: '#/definitions/LikemarkResponse'
+        400:
+            description: Bad Request.
+        404:
+            description: Likemark do not exist.
+            
+  /likemark/getFirstChildren/{id}:
+    get:
+      summary: Get only children of a likemark by his id.
+      parameters:
+      - in: path
+        name: id
+        type: string
+        required: true
+        description: Unique id of the likemark.
+      responses:
+        200:
+          description: OK.
+          schema:
+            $ref: '#/definitions/LikemarkListResponse'
+        400:
+            description: Bad Request.
+        404:
+            description: Likemark do not exist.
+            
+  /likemark/getWithFirstChildren/{id}:
+    get:
+        summary: Get a likemark with his children by his id.
+        parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Unique id of the likemark.
+        responses:
+          200:
+            description: OK.
+            schema:
+              $ref: '#/definitions/LikemarkResponse'
+          400:
+              description: Bad Request.
+          404:
+              description: Likemark do not exist.
+              
+  /likemark/list:
+    get:
+        summary: Fetch all likemark as a list.
+        responses:
+          200:
+            description: OK.
+            schema:
+              $ref: '#/definitions/LikemarkListResponse'
+          400:
+              description: Bad Request.
+          404:
+              description: Likemark do not exist.
+  
+  /likemark/post: 
+    post:
+        summary: Create a single likemark.
+        responses:
+          200:
+            description: OK.
+            schema:
+              $ref: '#/definitions/LikemarkResponse'
+          400:
+              description: Bad Request.
+          404:
+              description: Likemark could not be created.
+              
+  /likemark/update/{id}: 
+    put:
+        summary: Update a likemark attributes by his id.
+        parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Unique id of the likemark.
+        responses:
+          200:
+            description: OK.
+            schema:
+              $ref: '#/definitions/LikemarkResponse'
+          400:
+              description: Bad Request.
+          404:
+              description: Likemark could not be updated.
+
+  /likemark/delete/{id}: 
+    delete:
+        summary: Delete a likemark by his id.
+        parameters:
+        - in: path
+          name: id
+          type: string
+          required: true
+          description: Unique id of the likemark.
+        responses:
+          200:
+            description: OK.
+            schema:
+              $ref: '#/definitions/LikemarkResponse'
+          400:
+              description: Bad Request.
+          404:
+              description: Likemark could not be deleted.
+              
+  /likemark/import:
+    post:
+      summary: Send a netscape file to save on likemark server.
+      consumes:
+         - multipart/form-data
+      parameters:
+         - in: formData
+           name: netscape file.
+           type: file
+           description: The netscape bookmark file to upload.
+      responses:
+          200:
+            description: OK.
+          400:
+              description: Bad Request.
+          404:
+              description: Likemark could not be imported.
+  
+  /likemark/export:
+    get:
+     produces:
+        - text/html
+     summary: Download a netscape file from likemark server.
+     responses:
+        200:
+          description: OK
+          schema:
+            type: file
+
+        400:
+            description: Bad Request.
+        404:
+            description: Likemark could not be exported.
+        
+
+definitions:
+  LikemarkResponse:
+    type: object
+    required:
+      - id
+      - parentId
+      - title
+      - url
+      - children
+    properties:
+      id:
+        type: string
+      parentId:
+        type: string
+      title:
+        type: string
+      url:
+        type: string
+      children:
+        type: array
+        items:
+          $ref: '#/definitions/LikemarkResponse'
+
+    example:
+      id: "e0ddda7d-d78b-43f4-a509-f5bade83596"
+      parentId: "7a8a3623-c461-4b58-a32d-0905096ed359"
+      title: Likemark title
+      url: "http://likemark.io"
+      children:
+        - "0": {
+          parentId:  "e0ddda7d-d78b-43f4-a509-f5bade83596",
+          children: [],
+          id:  "11",
+          title:  "Folder11",
+          url : "http://likemark.io"
+        }
+        
+  LikemarkListResponse:
+    type: object
+    required:
+      - success 
+      - message  
+    properties:
+      success: 
+             type: string
+      message: 
+             type: string
+    example: {
+        "success":true,
+        "message":
+          [{"parentId":"root","children":[],"id":"root","title":"Folder0","url":null},{"parentId":"root","children":[],"id":"e0ddda7d-d78b-43f4-a509-f5bade835964","title":"Folder1","url":null},{"parentId":"e0ddda7d-d78b-43f4-a509-f5bade835964","children":[],"id":"7a8a3623-c461-4b58-a32d-0905096ed359","title":"Folder11","url":"http://likemark.io"},{"parentId":"e0ddda7d-d78b-43f4-a509-f5bade835964","children":[],"id":"0f74e068-99a7-44d3-b8ef-38d66a414016","title":"Link12","url":"http://likemark.io"},{"parentId":"root","children":[],"id":"f8cabd62-9be7-42b5-b640-8575bdf15b6b","title":"Folder2","url":null},{"parentId":"f8cabd62-9be7-42b5-b640-8575bdf15b6b","children":[],"id":"57fc2053-0b05-42d6-a4fc-efea75b14628","title":"Folder21","url":"http://likemark.io"},{"parentId":"f8cabd62-9be7-42b5-b640-8575bdf15b6b","children":[],"id":"262709a5-8eff-4739-883f-e9f80595dce9","title":"Folder22","url":"http://likemark.io"},{"parentId":"f8cabd62-9be7-42b5-b640-8575bdf15b6b","children":[],"id":"ec402a5b-29f4-4fec-940e-40432b0a684b","title":"Folder23","url":null},{"parentId":"ec402a5b-29f4-4fec-940e-40432b0a684b","children":[],"id":"f6bcb59d-c19e-4175-97bd-1c6278948e00","title":"Folder231","url":"http://likemark.io"},{"parentId":"root","children":[],"id":"2164957f-7de0-439f-b6d2-b7aeb565ef56","title":"Link3","url":"http://likemark.io"}]
+      }
+      
+
+      
+
