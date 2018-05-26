@@ -5,6 +5,7 @@ import { Row } from '../models/Row'
 import { Likemark } from '../models/Likemark'
 import { Root } from '../models/Root'
 import { Request, Response } from 'express'
+import * as uuidv4 from 'uuid/v4'
 import * as fs from 'memfs'
 
 export class Dao {
@@ -98,6 +99,9 @@ export class Dao {
 
   public static post (req: Request, res: Response) {
     const likemark: any = req.body
+
+    const newId = uuidv4()
+    likemark.id = newId
 
     Row.create<Row>(likemark)
     .then(likemark => {
