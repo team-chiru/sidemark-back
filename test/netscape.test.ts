@@ -127,3 +127,20 @@ test('Test Import: Import a simple likemark object', () => {
     tree => expect(tree).toEqual(sample)
   )
 })
+
+test('Test duplicate import: Import twice the same file', () => {
+  const toImport = fs.readFileSync('test/netscape.html', 'utf8')
+  const idFactory = new IdFactory(IdMethod.UUID)
+
+  return Row.findAll<Row>().then(
+    empty => expect(empty).toEqual([])
+  ).then(
+    () => NetscapeAdapter.import(toImport, idFactory)
+  ).then(
+    () => NetscapeAdapter.import(toImport, idFactory)
+  ).then(
+    () => Row.findAll<Row>()
+  ).then(
+    all => expect(all.length).toBe(20)
+  )
+})

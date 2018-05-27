@@ -100,8 +100,8 @@ export class Dao {
   public static post (req: Request, res: Response) {
     const likemark: any = req.body
 
-    const newId = uuidv4()
-    likemark.id = newId
+    // create default uuid
+    likemark.id = uuidv4()
 
     Row.create<Row>(likemark)
     .then(likemark => {
