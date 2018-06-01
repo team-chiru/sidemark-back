@@ -23,7 +23,7 @@ export class Netscape {
             message: result
           })
         })
-        .catch(err => res.status(400).json({
+        .catch(err => res.status(500).json({
           success: false,
           message: err.message
         }))
@@ -37,7 +37,7 @@ export class Netscape {
         .attachment('likemark.html')
         .end(html)
     })
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))

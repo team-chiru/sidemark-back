@@ -25,7 +25,7 @@ export class Dao {
         message: Likemark.fromRow(likemark)
       })
     })
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))
@@ -43,7 +43,7 @@ export class Dao {
         child => Likemark.fromRow(child)
       )
     }))
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))
@@ -77,7 +77,7 @@ export class Dao {
         message: likemarkWithChild
       })
     })
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))
@@ -91,7 +91,7 @@ export class Dao {
         row => Likemark.fromRow(row)
       )
     }))
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))
@@ -113,7 +113,7 @@ export class Dao {
         success: true
       })
     })
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))
@@ -136,7 +136,7 @@ export class Dao {
         message: likemark
       })
     })
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err
     }))
@@ -156,7 +156,7 @@ export class Dao {
         success: true
       })
     })
-    .catch(err => res.status(400).json({
+    .catch(err => res.status(500).json({
       success: false,
       message: err.message
     }))
