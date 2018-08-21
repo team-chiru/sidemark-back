@@ -18,7 +18,7 @@ npm run lint
 ```
 
 ## Development
-The start script start server on port 42506 that can be change in the file /.env root project directory.
+The start script start server on port 8000 that can be change in the file /.env root project directory.
 
 ```
 npm start
@@ -89,7 +89,7 @@ Import likemark from netscape file to database.
 
 Example:
 ```
-curl -F file=@netscape.html http://localhost:42506/likemark/import
+curl -F file=@netscape.html http://localhost:8000/likemark/import
 ```
 
 
